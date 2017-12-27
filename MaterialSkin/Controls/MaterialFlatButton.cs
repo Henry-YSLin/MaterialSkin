@@ -5,23 +5,48 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using MaterialSkin.Animations;
+using System.Collections.Generic;
+using System.Linq;
+using MaterialSkin;
 
 namespace MaterialSkin.Controls
 {
-    public class MaterialFlatButton : Button, IMaterialControl
+    using ControlRenderExtension;
+    public class MaterialFlatButton : Panel, IMaterialControl
     {
         [Browsable(false)]
-        public int Depth { get; set; }
+        public Bitmap Shadow { get; set; }
         [Browsable(false)]
-        public MaterialSkinManager SkinManager => MaterialSkinManager.Instance;
+        public GraphicsPath ShadowShape { get; set; }
+        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        [Browsable(false)]
+        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
         public bool Primary { get; set; }
 
-        private readonly AnimationManager _animationManager;
-        private readonly AnimationManager _hoverAnimationManager;
+        public delegate void ClickAnimationFinishedEventHandler(object sender);
+        public event ClickAnimationFinishedEventHandler ClickAnimationFinished;
 
-        private SizeF _textSize;
+        private readonly AnimationManager animationManager;
+        private readonly AnimationManager hoverAnimationManager;
+
+        private int _fSize = 9;
+        [Category("Appearance")]
+        public int FontSize
+        {
+            get
+            {
+                return _fSize;
+            }
+            set
+            {
+                _fSize = value;
+                Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+            }
+        }
+
+        private SizeF textSize;
 
         private Image _icon;
         public Image Icon
@@ -38,35 +63,51 @@ namespace MaterialSkin.Controls
 
         public MaterialFlatButton()
         {
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             Primary = false;
-
-            _animationManager = new AnimationManager(false)
+            animationManager = new AnimationManager(false)
             {
                 Increment = 0.03,
                 AnimationType = AnimationType.EaseOut
             };
-            _hoverAnimationManager = new AnimationManager
+            hoverAnimationManager = new AnimationManager
             {
                 Increment = 0.07,
                 AnimationType = AnimationType.Linear
             };
 
-            _hoverAnimationManager.OnAnimationProgress += sender => Invalidate();
-            _animationManager.OnAnimationProgress += sender => Invalidate();
+            hoverAnimationManager.OnAnimationProgress += sender => Invalidate();
+            animationManager.OnAnimationProgress += sender => Invalidate();
+            animationManager.OnAnimationFinished += AnimationManager_OnAnimationFinished;
 
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            AutoSize = true;
+            AutoSize = false;
             Margin = new Padding(4, 6, 4, 6);
             Padding = new Padding(0);
+            Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
         }
 
+        private void AnimationManager_OnAnimationFinished(object sender)
+        {
+            AnimationManager AM = (AnimationManager)sender;
+            if (AM.GetAnimationCount() == 1)
+            {
+                ClickAnimationFinished?.Invoke(this);
+            }
+        }
+
+        [Browsable(true)]
         public override string Text
         {
             get { return base.Text; }
             set
             {
                 base.Text = value;
-                _textSize = CreateGraphics().MeasureString(value.ToUpper(), SkinManager.ROBOTO_MEDIUM_10);
+                textSize = CreateGraphics().MeasureString(value.ToUpper(), Font);
                 if (AutoSize)
                     Size = GetPreferredSize();
                 Invalidate();
@@ -75,24 +116,23 @@ namespace MaterialSkin.Controls
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
+            base.OnPaint(pevent);
             var g = pevent.Graphics;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            g.Clear(Parent.BackColor);
-
             //Hover
             Color c = SkinManager.GetFlatButtonHoverBackgroundColor();
-            using (Brush b = new SolidBrush(Color.FromArgb((int)(_hoverAnimationManager.GetProgress() * c.A), c.RemoveAlpha())))
+            using (Brush b = new SolidBrush(Color.FromArgb((int)(hoverAnimationManager.GetProgress() * c.A), c.RemoveAlpha())))
                 g.FillRectangle(b, ClientRectangle);
 
             //Ripple
-            if (_animationManager.IsAnimating())
+            if (animationManager.IsAnimating())
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
-                for (var i = 0; i < _animationManager.GetAnimationCount(); i++)
+                for (int i = 0; i < animationManager.GetAnimationCount(); i++)
                 {
-                    var animationValue = _animationManager.GetProgress(i);
-                    var animationSource = _animationManager.GetSource(i);
+                    var animationValue = animationManager.GetProgress(i);
+                    var animationSource = animationManager.GetSource(i);
 
                     using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (animationValue * 100)), Color.Black)))
                     {
@@ -102,19 +142,20 @@ namespace MaterialSkin.Controls
                 }
                 g.SmoothingMode = SmoothingMode.None;
             }
+            //Text
+            Rectangle textRect = ClientRectangle;
 
             //Icon
-            var iconRect = new Rectangle(8, 6, 24, 24);
-
-            if (string.IsNullOrEmpty(Text))
-                // Center Icon
-                iconRect.X += 2;
-
             if (Icon != null)
-                g.DrawImage(Icon, iconRect);
+            {
+                Rectangle iconRect = new Rectangle(8, textRect.Height / 2 - 12, 24, 24);
 
-            //Text
-            var textRect = ClientRectangle;
+                if (String.IsNullOrEmpty(Text))
+                    // Center Icon
+                    iconRect.X = textRect.Width / 2 - 12;
+
+                g.DrawImage(Icon, iconRect);
+            }
 
             if (Icon != null)
             {
@@ -136,11 +177,19 @@ namespace MaterialSkin.Controls
 
             g.DrawString(
                 Text.ToUpper(),
-                SkinManager.ROBOTO_MEDIUM_10,
+                Font,
                 Enabled ? (Primary ? SkinManager.ColorScheme.PrimaryBrush : SkinManager.GetPrimaryTextBrush()) : SkinManager.GetFlatButtonDisabledTextBrush(),
                 textRect,
                 new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center }
                 );
+            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
+        }
+
+        protected override void OnResize(EventArgs eventargs)
+        {
+            base.OnResize(eventargs);
+            Shadow = null;
+                ShadowShape = null;
         }
 
         private Size GetPreferredSize()
@@ -151,32 +200,31 @@ namespace MaterialSkin.Controls
         public override Size GetPreferredSize(Size proposedSize)
         {
             // Provides extra space for proper padding for content
-            var extra = 16;
+            int extra = 16;
 
             if (Icon != null)
                 // 24 is for icon size
                 // 4 is for the space between icon & text
                 extra += 24 + 4;
 
-            return new Size((int)Math.Ceiling(_textSize.Width) + extra, 36);
+            return new Size((int)Math.Ceiling(textSize.Width) + extra, 36);
         }
 
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
             if (DesignMode) return;
-
             MouseState = MouseState.OUT;
             MouseEnter += (sender, args) =>
             {
                 MouseState = MouseState.HOVER;
-                _hoverAnimationManager.StartNewAnimation(AnimationDirection.In);
+                hoverAnimationManager.StartNewAnimation(AnimationDirection.In);
                 Invalidate();
             };
             MouseLeave += (sender, args) =>
             {
                 MouseState = MouseState.OUT;
-                _hoverAnimationManager.StartNewAnimation(AnimationDirection.Out);
+                hoverAnimationManager.StartNewAnimation(AnimationDirection.Out);
                 Invalidate();
             };
             MouseDown += (sender, args) =>
@@ -185,7 +233,7 @@ namespace MaterialSkin.Controls
                 {
                     MouseState = MouseState.DOWN;
 
-                    _animationManager.StartNewAnimation(AnimationDirection.In, args.Location);
+                    animationManager.StartNewAnimation(AnimationDirection.In, args.Location);
                     Invalidate();
                 }
             };

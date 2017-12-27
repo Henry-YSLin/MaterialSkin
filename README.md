@@ -3,6 +3,8 @@ MaterialSkin for .NET WinForms
 
 Theming .NET WinForms, C# or VB.Net, to Google's Material Design Principles.
 
+Some of the controls are taken from the project [Viki4Tech/MaterialDesign](https://github.com/Viki4Tech/MaterialDesign)
+
 <a href="https://www.youtube.com/watch?v=A8osVM_SXlg" target="_blank">![alt tag](http://i.imgur.com/JAttoOo.png)</a>
 
 *High quality images can be found at the bottom of this page.*
@@ -22,10 +24,15 @@ Single-line text field | Yes | Yes | No | Yes
 TabControl | Yes | N/A | N/A | Yes
 ContextMenuStrip | Yes | Yes | Yes | Yes
 ListView | Yes | Yes | No | No
-ProgressBar | Yes | Yes | No | No 
+ProgressBar | Yes | Yes | No | Yes 
 FloatingActionButton | No | No | No | No
 Dialogs | No | No | No | No
-Switch | No | No | No | No
+Toggle | Yes | Yes | Yes | Yes
+Avatar | Yes | Yes | N/A | N/A
+Card | Yes | Yes | Yes | Yes
+CardPanel | Yes | Yes | Yes | N/A
+Panel | Yes | Yes | Yes | N/A
+SmallCard | Yes | Yes | Yes | Yes
 More... | No | No | No | No
 
 ---
@@ -101,15 +108,6 @@ If you love .NET and Material Design, you should definitely check out [Material 
 #### State of the project
 
 This project is no longer under active development. Though, contributions are still welcome and the community will likely still help if you open an issue.
-
----
-
-#### Contact
-
-If you wish to contact me for anything you can get in touch at:
-
-- Twitter: https://twitter.com/Ignace_Maes
-- Personal Website: http://ignacemaes.com
 
 ---
 

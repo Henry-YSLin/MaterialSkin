@@ -6,37 +6,37 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
-using MaterialSkin.Properties;
+using MaterialSkin;
 
 namespace MaterialSkin
 {
     public class MaterialSkinManager
     {
         //Singleton instance
-        private static MaterialSkinManager _instance;
+        private static MaterialSkinManager instance;
 
         //Forms to control
-        private readonly List<MaterialForm> _formsToManage = new List<MaterialForm>();
+        private readonly List<MaterialForm> formsToManage = new List<MaterialForm>();
 
         //Theme
-        private Themes _theme;
+        private Themes theme;
         public Themes Theme
         {
-            get { return _theme; }
+            get { return theme; }
             set
             {
-                _theme = value;
+                theme = value;
                 UpdateBackgrounds();
             }
         }
 
-        private ColorScheme _colorScheme;
+        private ColorScheme colorScheme;
         public ColorScheme ColorScheme
         {
-            get { return _colorScheme; }
+            get { return colorScheme; }
             set
             {
-                _colorScheme = value;
+                colorScheme = value;
                 UpdateBackgrounds();
             }
         }
@@ -120,64 +120,70 @@ namespace MaterialSkin
         public readonly Color ACTION_BAR_TEXT_SECONDARY = Color.FromArgb(153, 255, 255, 255);
         public readonly Brush ACTION_BAR_TEXT_SECONDARY_BRUSH = new SolidBrush(Color.FromArgb(153, 255, 255, 255));
 
+        //Shadow color for all controls
+        public static readonly Color SHADOW_COLOR = Color.FromArgb(0,0,0);
+        public static readonly Color SOFT_SHADOW_COLOR = Color.FromArgb(50,0,0,0);
+
+        public static bool SoftShadow { get; set; }
+
         public Color GetPrimaryTextColor()
         {
-            return Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK : PRIMARY_TEXT_WHITE;
+            return (Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK : PRIMARY_TEXT_WHITE);
         }
 
         public Brush GetPrimaryTextBrush()
         {
-            return Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK_BRUSH : PRIMARY_TEXT_WHITE_BRUSH;
+            return (Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK_BRUSH : PRIMARY_TEXT_WHITE_BRUSH);
         }
 
         public Color GetSecondaryTextColor()
         {
-            return Theme == Themes.LIGHT ? SECONDARY_TEXT_BLACK : SECONDARY_TEXT_WHITE;
+            return (Theme == Themes.LIGHT ? SECONDARY_TEXT_BLACK : SECONDARY_TEXT_WHITE);
         }
 
         public Brush GetSecondaryTextBrush()
         {
-            return Theme == Themes.LIGHT ? SECONDARY_TEXT_BLACK_BRUSH : SECONDARY_TEXT_WHITE_BRUSH;
+            return (Theme == Themes.LIGHT ? SECONDARY_TEXT_BLACK_BRUSH : SECONDARY_TEXT_WHITE_BRUSH);
         }
 
         public Color GetDisabledOrHintColor()
         {
-            return Theme == Themes.LIGHT ? DISABLED_OR_HINT_TEXT_BLACK : DISABLED_OR_HINT_TEXT_WHITE;
+            return (Theme == Themes.LIGHT ? DISABLED_OR_HINT_TEXT_BLACK : DISABLED_OR_HINT_TEXT_WHITE);
         }
 
         public Brush GetDisabledOrHintBrush()
         {
-            return Theme == Themes.LIGHT ? DISABLED_OR_HINT_TEXT_BLACK_BRUSH : DISABLED_OR_HINT_TEXT_WHITE_BRUSH;
+            return (Theme == Themes.LIGHT ? DISABLED_OR_HINT_TEXT_BLACK_BRUSH : DISABLED_OR_HINT_TEXT_WHITE_BRUSH);
         }
 
         public Color GetDividersColor()
         {
-            return Theme == Themes.LIGHT ? DIVIDERS_BLACK : DIVIDERS_WHITE;
+            return (Theme == Themes.LIGHT ? DIVIDERS_BLACK : DIVIDERS_WHITE);
         }
 
         public Brush GetDividersBrush()
         {
-            return Theme == Themes.LIGHT ? DIVIDERS_BLACK_BRUSH : DIVIDERS_WHITE_BRUSH;
+            return (Theme == Themes.LIGHT ? DIVIDERS_BLACK_BRUSH : DIVIDERS_WHITE_BRUSH);
         }
 
         public Color GetCheckboxOffColor()
         {
-            return Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT : CHECKBOX_OFF_DARK;
+            return (Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT : CHECKBOX_OFF_DARK);
         }
 
         public Brush GetCheckboxOffBrush()
         {
-            return Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT_BRUSH : CHECKBOX_OFF_DARK_BRUSH;
+            return (Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT_BRUSH : CHECKBOX_OFF_DARK_BRUSH);
         }
 
         public Color GetCheckBoxOffDisabledColor()
         {
-            return Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT : CHECKBOX_OFF_DISABLED_DARK;
+            return (Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT : CHECKBOX_OFF_DISABLED_DARK);
         }
 
         public Brush GetCheckBoxOffDisabledBrush()
         {
-            return Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT_BRUSH : CHECKBOX_OFF_DISABLED_DARK_BRUSH;
+            return (Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT_BRUSH : CHECKBOX_OFF_DISABLED_DARK_BRUSH);
         }
 
         public Brush GetRaisedButtonBackgroundBrush()
@@ -187,49 +193,51 @@ namespace MaterialSkin
 
         public Brush GetRaisedButtonTextBrush(bool primary)
         {
-            return primary ? RAISED_BUTTON_TEXT_LIGHT_BRUSH : RAISED_BUTTON_TEXT_DARK_BRUSH;
+            return (primary ? RAISED_BUTTON_TEXT_LIGHT_BRUSH : RAISED_BUTTON_TEXT_DARK_BRUSH);
         }
 
         public Color GetFlatButtonHoverBackgroundColor()
         {
-            return Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_HOVER_LIGHT : FLAT_BUTTON_BACKGROUND_HOVER_DARK;
+            return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_HOVER_LIGHT : FLAT_BUTTON_BACKGROUND_HOVER_DARK);
         }
 
         public Brush GetFlatButtonHoverBackgroundBrush()
         {
-            return Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_HOVER_LIGHT_BRUSH : FLAT_BUTTON_BACKGROUND_HOVER_DARK_BRUSH;
+            return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_HOVER_LIGHT_BRUSH : FLAT_BUTTON_BACKGROUND_HOVER_DARK_BRUSH);
         }
 
         public Color GetFlatButtonPressedBackgroundColor()
         {
-            return Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_PRESSED_LIGHT : FLAT_BUTTON_BACKGROUND_PRESSED_DARK;
+            return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_PRESSED_LIGHT : FLAT_BUTTON_BACKGROUND_PRESSED_DARK);
         }
 
         public Brush GetFlatButtonPressedBackgroundBrush()
         {
-            return Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_PRESSED_LIGHT_BRUSH : FLAT_BUTTON_BACKGROUND_PRESSED_DARK_BRUSH;
+            return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_PRESSED_LIGHT_BRUSH : FLAT_BUTTON_BACKGROUND_PRESSED_DARK_BRUSH);
         }
 
         public Brush GetFlatButtonDisabledTextBrush()
         {
-            return Theme == Themes.LIGHT ? FLAT_BUTTON_DISABLEDTEXT_LIGHT_BRUSH : FLAT_BUTTON_DISABLEDTEXT_DARK_BRUSH;
+            return (Theme == Themes.LIGHT ? FLAT_BUTTON_DISABLEDTEXT_LIGHT_BRUSH : FLAT_BUTTON_DISABLEDTEXT_DARK_BRUSH);
         }
 
         public Brush GetCmsSelectedItemBrush()
         {
-            return Theme == Themes.LIGHT ? CMS_BACKGROUND_HOVER_LIGHT_BRUSH : CMS_BACKGROUND_HOVER_DARK_BRUSH;
+            return (Theme == Themes.LIGHT ? CMS_BACKGROUND_HOVER_LIGHT_BRUSH : CMS_BACKGROUND_HOVER_DARK_BRUSH);
         }
 
         public Color GetApplicationBackgroundColor()
         {
-            return Theme == Themes.LIGHT ? BACKGROUND_LIGHT : BACKGROUND_DARK;
+            return (Theme == Themes.LIGHT ? BACKGROUND_LIGHT : BACKGROUND_DARK);
         }
 
         //Roboto font
+        public Font ROBOTO_MEDIUM_15;
         public Font ROBOTO_MEDIUM_12;
         public Font ROBOTO_REGULAR_11;
         public Font ROBOTO_MEDIUM_11;
         public Font ROBOTO_MEDIUM_10;
+        public Font ROBOTO_REGULAR_9;
 
         //Other constants
         public int FORM_PADDING = 14;
@@ -239,25 +247,30 @@ namespace MaterialSkin
 
         private MaterialSkinManager()
         {
-            ROBOTO_MEDIUM_12 = new Font(LoadFont(Resources.Roboto_Medium), 12f);
-            ROBOTO_MEDIUM_10 = new Font(LoadFont(Resources.Roboto_Medium), 10f);
-            ROBOTO_REGULAR_11 = new Font(LoadFont(Resources.Roboto_Regular), 11f);
-            ROBOTO_MEDIUM_11 = new Font(LoadFont(Resources.Roboto_Medium), 11f);
+            ROBOTO_MEDIUM_15 = new Font(LoadFont(MaterialResources.Roboto_Medium), 15f);
+            ROBOTO_MEDIUM_12 = new Font(LoadFont(MaterialResources.Roboto_Medium), 12f);
+            ROBOTO_MEDIUM_10 = new Font(LoadFont(MaterialResources.Roboto_Medium), 10f);
+            ROBOTO_REGULAR_11 = new Font(LoadFont(MaterialResources.Roboto_Regular), 11f);
+            ROBOTO_MEDIUM_11 = new Font(LoadFont(MaterialResources.Roboto_Medium), 11f);
+            ROBOTO_REGULAR_9 = new Font(LoadFont(MaterialResources.Roboto_Regular), 9f);
             Theme = Themes.LIGHT;
             ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        public static MaterialSkinManager Instance => _instance ?? (_instance = new MaterialSkinManager());
+        public static MaterialSkinManager Instance
+        {
+            get { return instance ?? (instance = new MaterialSkinManager()); }
+        }
 
         public void AddFormToManage(MaterialForm materialForm)
         {
-            _formsToManage.Add(materialForm);
+            formsToManage.Add(materialForm);
             UpdateBackgrounds();
         }
 
         public void RemoveFormToManage(MaterialForm materialForm)
         {
-            _formsToManage.Remove(materialForm);
+            formsToManage.Remove(materialForm);
         }
 
         private readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
@@ -278,7 +291,7 @@ namespace MaterialSkin
         private void UpdateBackgrounds()
         {
             var newBackColor = GetApplicationBackgroundColor();
-            foreach (var materialForm in _formsToManage)
+            foreach (var materialForm in formsToManage)
             {
                 materialForm.BackColor = newBackColor;
                 UpdateControl(materialForm, newBackColor);

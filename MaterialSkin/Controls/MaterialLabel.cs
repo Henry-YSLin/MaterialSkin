@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace MaterialSkin.Controls
@@ -6,19 +9,59 @@ namespace MaterialSkin.Controls
     public class MaterialLabel : Label, IMaterialControl
     {
         [Browsable(false)]
-        public int Depth { get; set; }
+        public Bitmap Shadow { get; set; }
         [Browsable(false)]
-        public MaterialSkinManager SkinManager => MaterialSkinManager.Instance;
+        public GraphicsPath ShadowShape { get; set; }
+        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        [Browsable(false)]
+        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
+        [Category("Appearance")]
+        public bool Primary { get; set; }
+        private int _fSize = 11;
+        [Category("Appearance")]
+        public int FontSize {
+            get {
+                return _fSize;
+            }
+            set
+            {
+                _fSize = value;
+                Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+            }
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            Shadow = null;
+        }
+
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
+            if (Primary)
+            {
+                ForeColor = SkinManager.GetPrimaryTextColor();
+            }
+            else
+            {
+                ForeColor = SkinManager.GetSecondaryTextColor();
+            }
+            Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, FontSize);
 
-            ForeColor = SkinManager.GetPrimaryTextColor();
-            Font = SkinManager.ROBOTO_REGULAR_11;
-
-            BackColorChanged += (sender, args) => ForeColor = SkinManager.GetPrimaryTextColor();
+            BackColorChanged += (sender, args) =>
+            {
+                if (Primary)
+                {
+                    ForeColor = SkinManager.GetPrimaryTextColor();
+                }
+                else
+                {
+                    ForeColor = SkinManager.GetSecondaryTextColor();
+                }
+            };
         }
     }
 }

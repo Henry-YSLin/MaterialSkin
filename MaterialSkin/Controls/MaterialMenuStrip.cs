@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
@@ -11,8 +12,12 @@ using System.Windows.Forms;
 namespace MaterialSkin.Controls
 {
 	public class MaterialMenuStrip : MenuStrip, IMaterialControl
-	{
-		public int Depth { get; set; }
+    {
+        [Browsable(false)]
+        public Bitmap Shadow { get; set; }
+        [Browsable(false)]
+        public GraphicsPath ShadowShape { get; set; }
+        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
 		public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
 		public MouseState MouseState { get; set; }
 
@@ -28,19 +33,29 @@ namespace MaterialSkin.Controls
 				Location = new Point(0, 28);
 			}
 		}
-		
-		protected override void OnCreateControl()
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            Shadow = null;
+        }
+
+        protected override void OnCreateControl()
 		{
 			base.OnCreateControl();
 			Font = SkinManager.ROBOTO_MEDIUM_10;
-			BackColor = SkinManager.PrimaryColor;
+			BackColor = SkinManager.GetApplicationBackgroundColor();
 		}
 	}
 
 	internal class MaterialMenuStripRender : ToolStripProfessionalRenderer, IMaterialControl
-	{
-		//Properties for managing the material design properties
-		public int Depth { get; set; }
+    {
+        [Browsable(false)]
+        public Bitmap Shadow { get; set; }
+        [Browsable(false)]
+        public GraphicsPath ShadowShape { get; set; }
+        //Properties for managing the material design properties
+        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;}}
 		public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
 		public MouseState MouseState { get; set; }
 
@@ -53,18 +68,18 @@ namespace MaterialSkin.Controls
 			{
 				var itemRect = GetItemRect(e.Item);
 				var textRect = new Rectangle(24, itemRect.Y, itemRect.Width - (24 + 16), itemRect.Height);
-				g.DrawString(e.Text, SkinManager.ROBOTO_MEDIUM_10, e.Item.Enabled ? SkinManager.GetMainTextBrush() : SkinManager.GetDisabledOrHintBrush(), textRect, new StringFormat() { LineAlignment = StringAlignment.Center });
+				g.DrawString(e.Text, SkinManager.ROBOTO_MEDIUM_10, e.Item.Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush(), textRect, new StringFormat() { LineAlignment = StringAlignment.Center });
 			}
 			else
 			{
-				g.DrawString(e.Text, SkinManager.ROBOTO_MEDIUM_10, Brushes.White, e.TextRectangle, new StringFormat() { LineAlignment = StringAlignment.Center });
+				g.DrawString(e.Text, SkinManager.ROBOTO_MEDIUM_10, SkinManager.ColorScheme.LightPrimaryBrush, e.TextRectangle, new StringFormat() { LineAlignment = StringAlignment.Center });
 			}
 		}
 
 		protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
 		{
 			var g = e.Graphics;
-			g.Clear(SkinManager.PrimaryColor);
+			g.Clear(SkinManager.GetApplicationBackgroundColor());
 
 			//Draw background
 			var itemRect = GetItemRect(e.Item);
@@ -74,7 +89,7 @@ namespace MaterialSkin.Controls
 			}
 			else
 			{
-				g.FillRectangle(e.Item.Selected ? SkinManager.GetFlatButtonPressedBackgroundBrush() : SkinManager.PrimaryColorBrush, itemRect);
+				g.FillRectangle(e.Item.Selected ? SkinManager.GetFlatButtonPressedBackgroundBrush() : new SolidBrush(SkinManager.GetApplicationBackgroundColor()), itemRect);
 			}
 
 			//Ripple animation
@@ -122,7 +137,7 @@ namespace MaterialSkin.Controls
 			const int ARROW_SIZE = 4;
 
 			var arrowMiddle = new Point(e.ArrowRectangle.X + e.ArrowRectangle.Width / 2, e.ArrowRectangle.Y + e.ArrowRectangle.Height / 2);
-			var arrowBrush = e.Item.Enabled ? SkinManager.GetMainTextBrush() : SkinManager.GetDisabledOrHintBrush();
+			var arrowBrush = e.Item.Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush();
 			using (var arrowPath = new GraphicsPath())
 			{
 				arrowPath.AddLines(new[] { new Point(arrowMiddle.X - ARROW_SIZE, arrowMiddle.Y - ARROW_SIZE), new Point(arrowMiddle.X, arrowMiddle.Y), new Point(arrowMiddle.X - ARROW_SIZE, arrowMiddle.Y + ARROW_SIZE) });

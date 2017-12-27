@@ -46,7 +46,7 @@ namespace MaterialSkin.Animations
     {
         public static double CalculateProgress(double progress)
         {
-            var kickoff = 0.6;
+            double kickoff = 0.6;
             return 1 - Math.Cos((Math.Max(progress, kickoff) - kickoff) * Math.PI / (2 - (2 * kickoff)));
         }
     }
