@@ -9,3 +9,15 @@ C:\Users\user\Downloads\MaterialSkin-master\MaterialSkinExample\bin\Debug\Materi
 C:\Users\user\Downloads\MaterialSkin-master\MaterialSkinExample\obj\Debug\MaterialSkinExample.csprojResolveAssemblyReference.cache
 C:\Users\user\Downloads\MaterialSkin-master\MaterialSkinExample\obj\Debug\MaterialSkinExample.exe
 C:\Users\user\Downloads\MaterialSkin-master\MaterialSkinExample\obj\Debug\MaterialSkinExample.pdb
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\bin\Debug\MaterialSkinExample.exe.config
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\bin\Debug\MaterialSkinExample.exe
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\bin\Debug\MaterialSkinExample.pdb
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\bin\Debug\MaterialSkin.dll
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\bin\Debug\MaterialSkin.pdb
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.csprojResolveAssemblyReference.cache
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.MainForm.resources
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.Properties.Resources.resources
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.csproj.GenerateResource.Cache
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.csproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.exe
+C:\Users\user\Source\Repos\MaterialSkin\MaterialSkinExample\obj\Debug\MaterialSkinExample.pdb

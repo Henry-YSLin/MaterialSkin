@@ -340,7 +340,11 @@ namespace MaterialSkin
             if (controlToUpdate is MaterialListView)
             {
                 controlToUpdate.BackColor = newBackColor;
+            }
 
+            if (controlToUpdate is MaterialSingleLineTextField)
+            {
+                controlToUpdate.BackColor = newBackColor;
             }
 
             //recursive call
