@@ -11,6 +11,7 @@ using System.Collections.Generic;
 namespace MaterialSkin.Controls
 {
     using ControlRenderExtension;
+    [DefaultEvent("Click")]
     public class MaterialRaisedButton : Panel, IMaterialControl
     {
         [Browsable(false)]

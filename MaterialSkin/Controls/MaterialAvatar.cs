@@ -11,6 +11,7 @@ using System.Linq;
 namespace MaterialSkin.Controls
 {
     using ControlRenderExtension;
+    [DefaultEvent("Click")]
     public class MaterialAvatar : Panel, IMaterialControl
     {
         [Browsable(false)]

@@ -11,6 +11,7 @@ using System.Linq;
 namespace MaterialSkin.Controls
 {
     using ControlRenderExtension;
+    [DefaultEvent("CheckedChanged")]
     public class MaterialRadioButton : Panel, IMaterialControl
     {
         [Browsable(false)]

@@ -12,6 +12,7 @@ using MaterialSkin;
 namespace MaterialSkin.Controls
 {
     using ControlRenderExtension;
+    [DefaultEvent("Click")]
     public class MaterialFlatButton : Panel, IMaterialControl
     {
         [Browsable(false)]
@@ -187,7 +188,12 @@ namespace MaterialSkin.Controls
         {
             base.OnResize(eventargs);
             Shadow = null;
-                ShadowShape = null;
+            ShadowShape = null; 
+            //ShadowShape = DrawHelper.CreateRoundRect(ClientRectangle.X,
+            //ClientRectangle.Y,
+            //    ClientRectangle.Width - 1,
+            //    ClientRectangle.Height - 1,
+            //    1f); //DEBUG
         }
 
         private Size GetPreferredSize()

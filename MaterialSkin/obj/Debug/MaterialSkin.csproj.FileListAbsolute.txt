@@ -17,3 +17,13 @@ C:\Users\user\Source\Repos\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.cspr
 C:\Users\user\Source\Repos\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.csproj.CoreCompileInputs.cache
 C:\Users\user\Source\Repos\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.dll
 C:\Users\user\Source\Repos\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.pdb
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\bin\Debug\MaterialSkin.dll
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\bin\Debug\MaterialSkin.pdb
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.Controls.MaterialForm.resources
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.MaterialResources.resources
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.Properties.Resources.resources
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.csproj.GenerateResource.Cache
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.dll
+C:\Users\user\Documents\GitHub\MaterialSkin\MaterialSkin\obj\Debug\MaterialSkin.pdb

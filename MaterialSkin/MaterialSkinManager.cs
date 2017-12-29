@@ -119,7 +119,7 @@ namespace MaterialSkin
         public static readonly Brush ACTION_BAR_TEXT_SECONDARY_BRUSH = new SolidBrush(Color.FromArgb(153, 255, 255, 255));
 
         //Shadow color for all controls
-        public static readonly Color SHADOW_COLOR = Color.FromArgb(0,0,0);
+        public static readonly Color SHADOW_COLOR = Color.FromArgb(200,0,0,0);
         public static readonly Color SOFT_SHADOW_COLOR = Color.FromArgb(30,0,0,0);
 
         public static bool SoftShadow { get; set; }

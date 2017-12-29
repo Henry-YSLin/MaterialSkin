@@ -57,25 +57,25 @@ namespace MaterialSkinExample
             this.materialRadioButton1 = new MaterialSkin.Controls.MaterialRadioButton();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new MaterialSkin.Controls.MaterialTabPage();
             this.materialSingleLineTextField3 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new MaterialSkin.Controls.MaterialTabPage();
             this.materialCheckBox6 = new MaterialSkin.Controls.MaterialCheckBox();
             this.materialCheckBox5 = new MaterialSkin.Controls.MaterialCheckBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new MaterialSkin.Controls.MaterialTabPage();
+            this.tabPage4 = new MaterialSkin.Controls.MaterialTabPage();
             this.materialListView1 = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new MaterialSkin.Controls.MaterialTabPage();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.materialFlatButton4 = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialRaisedButton2 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new MaterialSkin.Controls.MaterialTabPage();
             this.materialCardPanel1 = new MaterialSkin.Controls.MaterialCardPanel();
             this.materialToggle1 = new MaterialSkin.Controls.MaterialToggle();
             this.materialSmallCard1 = new MaterialSkin.Controls.MaterialSmallCard();
@@ -106,6 +106,7 @@ namespace MaterialSkinExample
             this.materialFlatButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.materialFlatButton2.AutoSize = true;
             this.materialFlatButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialFlatButton2.BackColor = System.Drawing.Color.Transparent;
             this.materialFlatButton2.Depth = 0;
             this.materialFlatButton2.Font = new System.Drawing.Font("Roboto", 9F);
             this.materialFlatButton2.FontSize = 9;
@@ -120,12 +121,14 @@ namespace MaterialSkinExample
             this.materialFlatButton2.Size = new System.Drawing.Size(92, 36);
             this.materialFlatButton2.TabIndex = 13;
             this.materialFlatButton2.Text = "Secondary";
+            this.materialFlatButton2.Click += new System.EventHandler(this.materialFlatButton2_Click);
             // 
             // materialFlatButton1
             // 
             this.materialFlatButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.materialFlatButton1.AutoSize = true;
             this.materialFlatButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialFlatButton1.BackColor = System.Drawing.Color.Transparent;
             this.materialFlatButton1.Depth = 0;
             this.materialFlatButton1.Font = new System.Drawing.Font("Roboto", 9F);
             this.materialFlatButton1.FontSize = 9;
@@ -353,7 +356,8 @@ namespace MaterialSkinExample
             this.materialButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.materialButton1.AutoSize = true;
             this.materialButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton1.Depth = 0;
+            this.materialButton1.BackColor = System.Drawing.Color.White;
+            this.materialButton1.Depth = 10;
             this.materialButton1.Font = new System.Drawing.Font("Roboto", 9F);
             this.materialButton1.FontSize = 9;
             this.materialButton1.Icon = null;
@@ -433,9 +437,13 @@ namespace MaterialSkinExample
             this.tabPage1.Controls.Add(this.materialSingleLineTextField2);
             this.tabPage1.Controls.Add(this.materialButton1);
             this.tabPage1.Controls.Add(this.materialLabel1);
+            this.tabPage1.Depth = 0;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Shadow = null;
+            this.tabPage1.ShadowShape = null;
             this.tabPage1.Size = new System.Drawing.Size(725, 350);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
@@ -465,7 +473,7 @@ namespace MaterialSkinExample
             this.materialRaisedButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.materialRaisedButton1.AutoSize = true;
             this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton1.Depth = 0;
+            this.materialRaisedButton1.Depth = 10;
             this.materialRaisedButton1.Font = new System.Drawing.Font("Roboto", 9F);
             this.materialRaisedButton1.FontSize = 9;
             this.materialRaisedButton1.Icon = null;
@@ -490,9 +498,13 @@ namespace MaterialSkinExample
             this.tabPage2.Controls.Add(this.materialCheckbox1);
             this.tabPage2.Controls.Add(this.materialCheckbox2);
             this.tabPage2.Controls.Add(this.materialCheckbox4);
+            this.tabPage2.Depth = 0;
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Shadow = null;
+            this.tabPage2.ShadowShape = null;
             this.tabPage2.Size = new System.Drawing.Size(725, 350);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
@@ -544,9 +556,13 @@ namespace MaterialSkinExample
             this.tabPage3.Controls.Add(this.materialRadioButton1);
             this.tabPage3.Controls.Add(this.materialRadioButton2);
             this.tabPage3.Controls.Add(this.materialRadioButton3);
+            this.tabPage3.Depth = 0;
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Shadow = null;
+            this.tabPage3.ShadowShape = null;
             this.tabPage3.Size = new System.Drawing.Size(725, 350);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "MaterialTabPage3";
@@ -554,9 +570,13 @@ namespace MaterialSkinExample
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.materialListView1);
+            this.tabPage4.Depth = 0;
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Shadow = null;
+            this.tabPage4.ShadowShape = null;
             this.tabPage4.Size = new System.Drawing.Size(725, 350);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ListView";
@@ -576,8 +596,8 @@ namespace MaterialSkinExample
             this.materialListView1.FullRowSelect = true;
             this.materialListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.materialListView1.Location = new System.Drawing.Point(3, 3);
-            this.materialListView1.MouseLocation = new System.Drawing.Point(0, 0);
-            this.materialListView1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialListView1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialListView1.MouseState = MaterialSkin.MouseState.OUT;
             this.materialListView1.Name = "materialListView1";
             this.materialListView1.OwnerDraw = true;
             this.materialListView1.Shadow = null;
@@ -613,9 +633,13 @@ namespace MaterialSkinExample
             this.tabPage5.Controls.Add(this.materialFlatButton4);
             this.tabPage5.Controls.Add(this.materialRaisedButton2);
             this.tabPage5.Controls.Add(this.materialProgressBar1);
+            this.tabPage5.Depth = 0;
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Shadow = null;
+            this.tabPage5.ShadowShape = null;
             this.tabPage5.Size = new System.Drawing.Size(725, 350);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
@@ -701,8 +725,12 @@ namespace MaterialSkinExample
             // 
             this.tabPage6.Controls.Add(this.materialCardPanel1);
             this.tabPage6.Controls.Add(this.materialCard1);
+            this.tabPage6.Depth = 0;
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Shadow = null;
+            this.tabPage6.ShadowShape = null;
             this.tabPage6.Size = new System.Drawing.Size(725, 350);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
@@ -871,6 +899,7 @@ namespace MaterialSkinExample
             this.materialFlatButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.materialFlatButton3.AutoSize = true;
             this.materialFlatButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialFlatButton3.BackColor = System.Drawing.Color.Transparent;
             this.materialFlatButton3.Depth = 0;
             this.materialFlatButton3.Enabled = false;
             this.materialFlatButton3.Font = new System.Drawing.Font("Roboto", 9F);
@@ -940,9 +969,9 @@ namespace MaterialSkinExample
         private MaterialDivider materialDivider1;
         private MaterialTabSelector materialTabSelector1;
         private MaterialTabControl materialTabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private MaterialTabPage tabPage1;
+        private MaterialTabPage tabPage2;
+        private MaterialTabPage tabPage3;
         private MaterialCheckBox materialCheckBox5;
         private MaterialContextMenuStrip materialContextMenuStrip1;
         private MaterialSkin.Controls.MaterialToolStripMenuItem item1ToolStripMenuItem;
@@ -955,23 +984,23 @@ namespace MaterialSkinExample
 		private MaterialCheckBox materialCheckBox6;
 		private MaterialRaisedButton materialRaisedButton1;
         private MaterialSingleLineTextField materialSingleLineTextField3;
-		private TabPage tabPage4;
 		private MaterialListView materialListView1;
 		private ColumnHeader columnHeader1;
 		private ColumnHeader columnHeader2;
 		private ColumnHeader columnHeader3;
 		private ColumnHeader columnHeader4;
-        private TabPage tabPage5;
+        private MaterialTabPage tabPage5;
         private MaterialProgressBar materialProgressBar1;
         private MaterialRaisedButton materialRaisedButton2;
         private MaterialFlatButton materialFlatButton3;
         private MaterialFlatButton materialFlatButton4;
         private MaterialLabel materialLabel2;
-        private TabPage tabPage6;
+        private MaterialTabPage tabPage6;
         private MaterialAvatar materialAvatar1;
         private MaterialCardPanel materialCardPanel1;
         private MaterialToggle materialToggle1;
         private MaterialSmallCard materialSmallCard1;
         private MaterialCard materialCard1;
+        private MaterialTabPage tabPage4;
     }
 }

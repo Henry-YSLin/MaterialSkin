@@ -71,22 +71,25 @@ namespace MaterialSkin
                         if (p.Shadow == null) {
                             Bitmap sBMP = new Bitmap(p2.Width + p.Depth * 6, p2.Height + p.Depth * 6);
                             Graphics sg = Graphics.FromImage(sBMP);
+                            Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth * 4, MaterialSkinManager.SHADOW_COLOR);
+                            Color softShadow = Color.FromArgb(MaterialSkinManager.SOFT_SHADOW_COLOR.A - p.Depth / 2, MaterialSkinManager.SOFT_SHADOW_COLOR);
                             if (p.ShadowShape != null)
-                            {
+                            {//BUGGY HERE
+                                PointF midPt = new Point(p2.Left + p2.Width / 2, p2.Top + p2.Height / 2);
                                 GraphicsPath gp = (GraphicsPath)p.ShadowShape.Clone();
-                                gp.ScaleAndTranslate((p2.Width + p.Depth) / p2.Width, (p2.Height + p.Depth) / p2.Height, p.Depth * 3 - p.Depth / 4, p.Depth * 3 - p.Depth / 4);
-                                sg.FillPath(new SolidBrush(MaterialSkinManager.SOFT_SHADOW_COLOR), gp);
+                                gp.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
+                                sg.FillPath(new SolidBrush(softShadow), gp);
                                 GraphicsPath gp2 = (GraphicsPath)p.ShadowShape.Clone();
-                                gp2.ScaleAndTranslate(1, 1, p.Depth * 3 + p.Depth / 2, p.Depth * 3 + p.Depth / 2);
-                                sg.FillPath(new SolidBrush(MaterialSkinManager.SHADOW_COLOR), gp2);
+                                gp2.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
+                                sg.FillPath(new SolidBrush(shadow), gp2);
                             }
                             else
                             {
-                                sg.FillRectangle(new SolidBrush(MaterialSkinManager.SOFT_SHADOW_COLOR), p.Depth * 3 - p.Depth / 4, p.Depth * 3 - p.Depth / 4, p2.Width + p.Depth / 2, p2.Height + p.Depth / 2);
-                                sg.FillRectangle(new SolidBrush(MaterialSkinManager.SHADOW_COLOR), p.Depth * 3 + p.Depth / 2, p.Depth * 3 + p.Depth / 2, p2.Width, p2.Height);
+                                sg.FillRectangle(new SolidBrush(softShadow), p.Depth * 3 - p.Depth / 4, p.Depth * 3 - p.Depth / 4, p2.Width + p.Depth / 2, p2.Height + p.Depth / 2);
+                                sg.FillRectangle(new SolidBrush(shadow), p.Depth * 3 + p.Depth / 4, p.Depth * 3 + p.Depth / 4, p2.Width + p.Depth / 4, p2.Height + p.Depth / 4);
                             }
                             sg.Flush(FlushIntention.Sync);
-                            sBMP = sBMP.Blur((int)Math.Floor(p.Depth / 8f) + 1);
+                            sBMP = sBMP.Blur((int)Math.Floor(p.Depth / 4f) + 1);
                             p.Shadow = sBMP;
                         }
                         g.DrawImage(p.Shadow, p2.Left - p.Depth * 3, p2.Top - p.Depth * 3);
@@ -94,17 +97,14 @@ namespace MaterialSkin
                 }
             }
 
-            private static void ScaleAndTranslate(this GraphicsPath gp,
-                               float scalex, float scaley, float transX, float transY)
+            private static void ScaleAroundPivot(this GraphicsPath gp, 
+                float scalex, float scaley, float px, float py)
             {
                 Matrix m = new Matrix();
-                m.Scale(scalex, scaley);
+                m.Translate(-px, -py, MatrixOrder.Append);
+                m.Scale(scalex, scaley, MatrixOrder.Append);
+                m.Translate(px, py, MatrixOrder.Append);
                 gp.Transform(m);
-                
-                m.Reset();
-                m.Translate(transX, transY);
-                gp.Transform(m);
-
             }
         }
 
