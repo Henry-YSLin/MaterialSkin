@@ -17,9 +17,7 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
-        [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
         public bool Primary { get; set; }
@@ -41,7 +39,7 @@ namespace MaterialSkin.Controls
             set
             {
                 _fSize = value;
-                Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+                Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
             }
         }
 
@@ -83,7 +81,7 @@ namespace MaterialSkin.Controls
 
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             AutoSize = false;
-            Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+            Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
         }
 
         private void AnimationManager_OnAnimationFinished(object sender)
@@ -133,8 +131,8 @@ namespace MaterialSkin.Controls
                 ClientRectangle.Height - 1,
                 1f))
             {
-                g.FillPath(Primary ? SkinManager.ColorScheme.PrimaryBrush : SkinManager.GetRaisedButtonBackgroundBrush(), backgroundPath);
-                Color c = SkinManager.GetFlatButtonHoverBackgroundColor();
+                g.FillPath(Primary ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetRaisedButtonBackgroundBrush(), backgroundPath);
+                Color c = MaterialSkinManager.GetFlatButtonHoverBackgroundColor();
                 using (Brush b = new SolidBrush(Color.FromArgb((int)(hoverAnimationManager.GetProgress() * c.A), c.RemoveAlpha())))
                     g.FillPath(b, backgroundPath);
             }
@@ -185,10 +183,10 @@ namespace MaterialSkin.Controls
             g.DrawString(
                 Text.ToUpper(),
                 Font,
-                SkinManager.GetRaisedButtonTextBrush(Primary),
+                MaterialSkinManager.GetRaisedButtonTextBrush(Primary),
                 textRect,
                 new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(g);
         }
 
         private Size GetPreferredSize()

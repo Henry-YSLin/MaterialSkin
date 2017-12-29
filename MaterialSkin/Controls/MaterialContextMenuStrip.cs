@@ -17,8 +17,6 @@ namespace MaterialSkin.Controls
         //Properties for managing the material design properties
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         
 
@@ -44,7 +42,7 @@ namespace MaterialSkin.Controls
             animationManager.OnAnimationProgress += sender => Invalidate();
             animationManager.OnAnimationFinished += sender => OnItemClicked(delayesArgs);
 
-            BackColor = SkinManager.GetApplicationBackgroundColor();
+            BackColor = MaterialSkinManager.GetApplicationBackgroundColor();
         }
 
         protected override void OnMouseUp(MouseEventArgs mea)
@@ -107,7 +105,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         //Properties for managing the material design properties
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;}}
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
         public MouseState MouseState { get; set; }
         
 
@@ -120,8 +117,8 @@ namespace MaterialSkin.Controls
             var textRect = new Rectangle(24, itemRect.Y, itemRect.Width - (24 + 16), itemRect.Height);
             g.DrawString(
                 e.Text, 
-                SkinManager.ROBOTO_MEDIUM_10, 
-                e.Item.Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush(),
+                MaterialSkinManager.ROBOTO_MEDIUM_10, 
+                e.Item.Enabled ? MaterialSkinManager.GetPrimaryTextBrush() : MaterialSkinManager.GetDisabledOrHintBrush(),
                 textRect, 
                 new StringFormat { LineAlignment = StringAlignment.Center });
         }
@@ -129,11 +126,11 @@ namespace MaterialSkin.Controls
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
         {
             var g = e.Graphics;
-            g.Clear(SkinManager.GetApplicationBackgroundColor());
+            g.Clear(MaterialSkinManager.GetApplicationBackgroundColor());
 
             //Draw background
             var itemRect = GetItemRect(e.Item);
-            g.FillRectangle(e.Item.Selected && e.Item.Enabled ? SkinManager.GetCmsSelectedItemBrush() : new SolidBrush(SkinManager.GetApplicationBackgroundColor()), itemRect);
+            g.FillRectangle(e.Item.Selected && e.Item.Enabled ? MaterialSkinManager.GetCmsSelectedItemBrush() : new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), itemRect);
 
             //Ripple animation
             var toolStrip = e.ToolStrip as MaterialContextMenuStrip;
@@ -163,9 +160,9 @@ namespace MaterialSkin.Controls
         {
             var g = e.Graphics;
 
-            g.FillRectangle(new SolidBrush(SkinManager.GetApplicationBackgroundColor()), e.Item.Bounds);
+            g.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), e.Item.Bounds);
             g.DrawLine(
-                new Pen(SkinManager.GetDividersColor()),
+                new Pen(MaterialSkinManager.GetDividersColor()),
                 new Point(e.Item.Bounds.Left, e.Item.Bounds.Height / 2),
                 new Point(e.Item.Bounds.Right, e.Item.Bounds.Height / 2));
         }
@@ -175,7 +172,7 @@ namespace MaterialSkin.Controls
             var g = e.Graphics;
 
             g.DrawRectangle(
-                new Pen(SkinManager.GetDividersColor()),
+                new Pen(MaterialSkinManager.GetDividersColor()),
                 new Rectangle(e.AffectedBounds.X, e.AffectedBounds.Y, e.AffectedBounds.Width - 1, e.AffectedBounds.Height - 1));
         }
 
@@ -185,7 +182,7 @@ namespace MaterialSkin.Controls
             const int ARROW_SIZE = 4;
 
             var arrowMiddle = new Point(e.ArrowRectangle.X + e.ArrowRectangle.Width / 2, e.ArrowRectangle.Y + e.ArrowRectangle.Height / 2);
-            var arrowBrush = e.Item.Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush();
+            var arrowBrush = e.Item.Enabled ? MaterialSkinManager.GetPrimaryTextBrush() : MaterialSkinManager.GetDisabledOrHintBrush();
             using (var arrowPath = new GraphicsPath())
             {
                 arrowPath.AddLines(

@@ -10,17 +10,15 @@ using MaterialSkin;
 
 namespace MaterialSkin
 {
-    public class MaterialSkinManager
+    public static class MaterialSkinManager
     {
-        //Singleton instance
-        private static MaterialSkinManager instance;
 
         //Forms to control
-        private readonly List<MaterialForm> formsToManage = new List<MaterialForm>();
+        private static readonly List<MaterialForm> formsToManage = new List<MaterialForm>();
 
         //Theme
-        private Themes theme;
-        public Themes Theme
+        private static Themes theme;
+        public static Themes Theme
         {
             get { return theme; }
             set
@@ -30,8 +28,8 @@ namespace MaterialSkin
             }
         }
 
-        private ColorScheme colorScheme;
-        public ColorScheme ColorScheme
+        private static ColorScheme colorScheme;
+        public static ColorScheme ColorScheme
         {
             get { return colorScheme; }
             set
@@ -115,137 +113,137 @@ namespace MaterialSkin
         private static Brush BACKGROUND_DARK_BRUSH = new SolidBrush(BACKGROUND_DARK);
 
         //Application action bar
-        public readonly Color ACTION_BAR_TEXT = Color.FromArgb(255, 255, 255, 255);
-        public readonly Brush ACTION_BAR_TEXT_BRUSH = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
-        public readonly Color ACTION_BAR_TEXT_SECONDARY = Color.FromArgb(153, 255, 255, 255);
-        public readonly Brush ACTION_BAR_TEXT_SECONDARY_BRUSH = new SolidBrush(Color.FromArgb(153, 255, 255, 255));
+        public static readonly Color ACTION_BAR_TEXT = Color.FromArgb(255, 255, 255, 255);
+        public static readonly Brush ACTION_BAR_TEXT_BRUSH = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
+        public static readonly Color ACTION_BAR_TEXT_SECONDARY = Color.FromArgb(153, 255, 255, 255);
+        public static readonly Brush ACTION_BAR_TEXT_SECONDARY_BRUSH = new SolidBrush(Color.FromArgb(153, 255, 255, 255));
 
         //Shadow color for all controls
         public static readonly Color SHADOW_COLOR = Color.FromArgb(0,0,0);
-        public static readonly Color SOFT_SHADOW_COLOR = Color.FromArgb(50,0,0,0);
+        public static readonly Color SOFT_SHADOW_COLOR = Color.FromArgb(30,0,0,0);
 
         public static bool SoftShadow { get; set; }
 
-        public Color GetPrimaryTextColor()
+        public static Color GetPrimaryTextColor()
         {
             return (Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK : PRIMARY_TEXT_WHITE);
         }
 
-        public Brush GetPrimaryTextBrush()
+        public static Brush GetPrimaryTextBrush()
         {
             return (Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK_BRUSH : PRIMARY_TEXT_WHITE_BRUSH);
         }
 
-        public Color GetSecondaryTextColor()
+        public static Color GetSecondaryTextColor()
         {
             return (Theme == Themes.LIGHT ? SECONDARY_TEXT_BLACK : SECONDARY_TEXT_WHITE);
         }
 
-        public Brush GetSecondaryTextBrush()
+        public static Brush GetSecondaryTextBrush()
         {
             return (Theme == Themes.LIGHT ? SECONDARY_TEXT_BLACK_BRUSH : SECONDARY_TEXT_WHITE_BRUSH);
         }
 
-        public Color GetDisabledOrHintColor()
+        public static Color GetDisabledOrHintColor()
         {
             return (Theme == Themes.LIGHT ? DISABLED_OR_HINT_TEXT_BLACK : DISABLED_OR_HINT_TEXT_WHITE);
         }
 
-        public Brush GetDisabledOrHintBrush()
+        public static Brush GetDisabledOrHintBrush()
         {
             return (Theme == Themes.LIGHT ? DISABLED_OR_HINT_TEXT_BLACK_BRUSH : DISABLED_OR_HINT_TEXT_WHITE_BRUSH);
         }
 
-        public Color GetDividersColor()
+        public static Color GetDividersColor()
         {
             return (Theme == Themes.LIGHT ? DIVIDERS_BLACK : DIVIDERS_WHITE);
         }
 
-        public Brush GetDividersBrush()
+        public static Brush GetDividersBrush()
         {
             return (Theme == Themes.LIGHT ? DIVIDERS_BLACK_BRUSH : DIVIDERS_WHITE_BRUSH);
         }
 
-        public Color GetCheckboxOffColor()
+        public static Color GetCheckboxOffColor()
         {
             return (Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT : CHECKBOX_OFF_DARK);
         }
 
-        public Brush GetCheckboxOffBrush()
+        public static Brush GetCheckboxOffBrush()
         {
             return (Theme == Themes.LIGHT ? CHECKBOX_OFF_LIGHT_BRUSH : CHECKBOX_OFF_DARK_BRUSH);
         }
 
-        public Color GetCheckBoxOffDisabledColor()
+        public static Color GetCheckBoxOffDisabledColor()
         {
             return (Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT : CHECKBOX_OFF_DISABLED_DARK);
         }
 
-        public Brush GetCheckBoxOffDisabledBrush()
+        public static Brush GetCheckBoxOffDisabledBrush()
         {
             return (Theme == Themes.LIGHT ? CHECKBOX_OFF_DISABLED_LIGHT_BRUSH : CHECKBOX_OFF_DISABLED_DARK_BRUSH);
         }
 
-        public Brush GetRaisedButtonBackgroundBrush()
+        public static Brush GetRaisedButtonBackgroundBrush()
         {
             return RAISED_BUTTON_BACKGROUND_BRUSH;
         }
 
-        public Brush GetRaisedButtonTextBrush(bool primary)
+        public static Brush GetRaisedButtonTextBrush(bool primary)
         {
             return (primary ? RAISED_BUTTON_TEXT_LIGHT_BRUSH : RAISED_BUTTON_TEXT_DARK_BRUSH);
         }
 
-        public Color GetFlatButtonHoverBackgroundColor()
+        public static Color GetFlatButtonHoverBackgroundColor()
         {
             return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_HOVER_LIGHT : FLAT_BUTTON_BACKGROUND_HOVER_DARK);
         }
 
-        public Brush GetFlatButtonHoverBackgroundBrush()
+        public static Brush GetFlatButtonHoverBackgroundBrush()
         {
             return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_HOVER_LIGHT_BRUSH : FLAT_BUTTON_BACKGROUND_HOVER_DARK_BRUSH);
         }
 
-        public Color GetFlatButtonPressedBackgroundColor()
+        public static Color GetFlatButtonPressedBackgroundColor()
         {
             return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_PRESSED_LIGHT : FLAT_BUTTON_BACKGROUND_PRESSED_DARK);
         }
 
-        public Brush GetFlatButtonPressedBackgroundBrush()
+        public static Brush GetFlatButtonPressedBackgroundBrush()
         {
             return (Theme == Themes.LIGHT ? FLAT_BUTTON_BACKGROUND_PRESSED_LIGHT_BRUSH : FLAT_BUTTON_BACKGROUND_PRESSED_DARK_BRUSH);
         }
 
-        public Brush GetFlatButtonDisabledTextBrush()
+        public static Brush GetFlatButtonDisabledTextBrush()
         {
             return (Theme == Themes.LIGHT ? FLAT_BUTTON_DISABLEDTEXT_LIGHT_BRUSH : FLAT_BUTTON_DISABLEDTEXT_DARK_BRUSH);
         }
 
-        public Brush GetCmsSelectedItemBrush()
+        public static Brush GetCmsSelectedItemBrush()
         {
             return (Theme == Themes.LIGHT ? CMS_BACKGROUND_HOVER_LIGHT_BRUSH : CMS_BACKGROUND_HOVER_DARK_BRUSH);
         }
 
-        public Color GetApplicationBackgroundColor()
+        public static Color GetApplicationBackgroundColor()
         {
             return (Theme == Themes.LIGHT ? BACKGROUND_LIGHT : BACKGROUND_DARK);
         }
 
         //Roboto font
-        public Font ROBOTO_MEDIUM_15;
-        public Font ROBOTO_MEDIUM_12;
-        public Font ROBOTO_REGULAR_11;
-        public Font ROBOTO_MEDIUM_11;
-        public Font ROBOTO_MEDIUM_10;
-        public Font ROBOTO_REGULAR_9;
+        public static Font ROBOTO_MEDIUM_15;
+        public static Font ROBOTO_MEDIUM_12;
+        public static Font ROBOTO_REGULAR_11;
+        public static Font ROBOTO_MEDIUM_11;
+        public static Font ROBOTO_MEDIUM_10;
+        public static Font ROBOTO_REGULAR_9;
 
         //Other constants
-        public int FORM_PADDING = 14;
+        public static int FORM_PADDING = 14;
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pvd, [In] ref uint pcFonts);
 
-        private MaterialSkinManager()
+        static MaterialSkinManager()
         {
             ROBOTO_MEDIUM_15 = new Font(LoadFont(MaterialResources.Roboto_Medium), 15f);
             ROBOTO_MEDIUM_12 = new Font(LoadFont(MaterialResources.Roboto_Medium), 12f);
@@ -257,25 +255,20 @@ namespace MaterialSkin
             ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        public static MaterialSkinManager Instance
-        {
-            get { return instance ?? (instance = new MaterialSkinManager()); }
-        }
-
-        public void AddFormToManage(MaterialForm materialForm)
+        public static void AddFormToManage(MaterialForm materialForm)
         {
             formsToManage.Add(materialForm);
             UpdateBackgrounds();
         }
 
-        public void RemoveFormToManage(MaterialForm materialForm)
+        public static void RemoveFormToManage(MaterialForm materialForm)
         {
             formsToManage.Remove(materialForm);
         }
 
-        private readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+        private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
 
-        private FontFamily LoadFont(byte[] fontResource)
+        private static FontFamily LoadFont(byte[] fontResource)
         {
             int dataLength = fontResource.Length;
             IntPtr fontPtr = Marshal.AllocCoTaskMem(dataLength);
@@ -288,7 +281,7 @@ namespace MaterialSkin
             return privateFontCollection.Families.Last();
         }
 
-        private void UpdateBackgrounds()
+        private static void UpdateBackgrounds()
         {
             var newBackColor = GetApplicationBackgroundColor();
             foreach (var materialForm in formsToManage)
@@ -298,7 +291,7 @@ namespace MaterialSkin
             }
         }
 
-        private void UpdateToolStrip(ToolStrip toolStrip, Color newBackColor)
+        private static void UpdateToolStrip(ToolStrip toolStrip, Color newBackColor)
         {
             if (toolStrip == null) return;
 
@@ -315,7 +308,7 @@ namespace MaterialSkin
             }
         }
 
-        private void UpdateControl(Control controlToUpdate, Color newBackColor)
+        private static void UpdateControl(Control controlToUpdate, Color newBackColor)
         {
             if (controlToUpdate == null) return;
 
@@ -340,6 +333,7 @@ namespace MaterialSkin
             if (controlToUpdate is MaterialListView)
             {
                 controlToUpdate.BackColor = newBackColor;
+
             }
 
             if (controlToUpdate is MaterialSingleLineTextField)

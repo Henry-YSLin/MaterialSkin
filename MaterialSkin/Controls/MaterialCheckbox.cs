@@ -19,8 +19,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Browsable(false)]
         public Point MouseLocation { get; set; }
@@ -136,7 +134,7 @@ namespace MaterialSkin.Controls
 
         public override Size GetPreferredSize(Size proposedSize)
         {
-            int w = boxOffset + CHECKBOX_SIZE + 2 + (int)CreateGraphics().MeasureString(Text, SkinManager.ROBOTO_MEDIUM_10).Width;
+            int w = boxOffset + CHECKBOX_SIZE + 2 + (int)CreateGraphics().MeasureString(Text, MaterialSkinManager.ROBOTO_MEDIUM_10).Width;
             return Ripple ? new Size(w, 30) : new Size(w, 20);
         }
 
@@ -154,11 +152,11 @@ namespace MaterialSkin.Controls
 
             double animationProgress = animationManager.GetProgress();
 
-            int colorAlpha = Enabled ? (int)(animationProgress * 255.0) : SkinManager.GetCheckBoxOffDisabledColor().A;
-            int backgroundAlpha = Enabled ? (int)(SkinManager.GetCheckboxOffColor().A * (1.0 - animationProgress)) : SkinManager.GetCheckBoxOffDisabledColor().A;
+            int colorAlpha = Enabled ? (int)(animationProgress * 255.0) : MaterialSkinManager.GetCheckBoxOffDisabledColor().A;
+            int backgroundAlpha = Enabled ? (int)(MaterialSkinManager.GetCheckboxOffColor().A * (1.0 - animationProgress)) : MaterialSkinManager.GetCheckBoxOffDisabledColor().A;
 
-            var brush = new SolidBrush(Color.FromArgb(colorAlpha, Enabled ? SkinManager.ColorScheme.AccentColor : SkinManager.GetCheckBoxOffDisabledColor()));
-            var brush3 = new SolidBrush(Enabled ? SkinManager.ColorScheme.AccentColor : SkinManager.GetCheckBoxOffDisabledColor());
+            var brush = new SolidBrush(Color.FromArgb(colorAlpha, Enabled ? MaterialSkinManager.ColorScheme.AccentColor : MaterialSkinManager.GetCheckBoxOffDisabledColor()));
+            var brush3 = new SolidBrush(Enabled ? MaterialSkinManager.ColorScheme.AccentColor : MaterialSkinManager.GetCheckBoxOffDisabledColor());
             var pen = new Pen(brush.Color);
 
             // draw ripple animation
@@ -185,7 +183,7 @@ namespace MaterialSkin.Controls
             var checkMarkLineFill = new Rectangle(boxOffset, boxOffset, (int)(17.0 * animationProgress), 17);
             using (var checkmarkPath = DrawHelper.CreateRoundRect(boxOffset, boxOffset, 17, 17, 1f))
             {
-                SolidBrush brush2 = new SolidBrush(DrawHelper.BlendColor(Parent.BackColor, Enabled ? SkinManager.GetCheckboxOffColor() : SkinManager.GetCheckBoxOffDisabledColor(), backgroundAlpha));
+                SolidBrush brush2 = new SolidBrush(DrawHelper.BlendColor(Parent.BackColor, Enabled ? MaterialSkinManager.GetCheckboxOffColor() : MaterialSkinManager.GetCheckBoxOffDisabledColor(), backgroundAlpha));
                 Pen pen2 = new Pen(brush2.Color);
                 g.FillPath(brush2, checkmarkPath);
                 g.DrawPath(pen2, checkmarkPath);
@@ -212,11 +210,11 @@ namespace MaterialSkin.Controls
             }
 
             // draw checkbox text
-            SizeF stringSize = g.MeasureString(Text, SkinManager.ROBOTO_MEDIUM_10);
+            SizeF stringSize = g.MeasureString(Text, MaterialSkinManager.ROBOTO_MEDIUM_10);
             g.DrawString(
                 Text,
-                SkinManager.ROBOTO_MEDIUM_10,
-                Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush(),
+                MaterialSkinManager.ROBOTO_MEDIUM_10,
+                Enabled ? MaterialSkinManager.GetPrimaryTextBrush() : MaterialSkinManager.GetDisabledOrHintBrush(),
                 boxOffset + TEXT_OFFSET, Height / 2 - stringSize.Height / 2);
 
             // dispose used paint objects
@@ -263,7 +261,7 @@ namespace MaterialSkin.Controls
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            Font = SkinManager.ROBOTO_MEDIUM_10;
+            Font = MaterialSkinManager.ROBOTO_MEDIUM_10;
 
             if (DesignMode) return;
 

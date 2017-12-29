@@ -18,7 +18,6 @@ namespace MaterialSkin.Controls
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
-		public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
 		public MouseState MouseState { get; set; }
 
 		public MaterialMenuStrip()
@@ -43,8 +42,8 @@ namespace MaterialSkin.Controls
         protected override void OnCreateControl()
 		{
 			base.OnCreateControl();
-			Font = SkinManager.ROBOTO_MEDIUM_10;
-			BackColor = SkinManager.GetApplicationBackgroundColor();
+			Font = MaterialSkinManager.ROBOTO_MEDIUM_10;
+			BackColor = MaterialSkinManager.GetApplicationBackgroundColor();
 		}
 	}
 
@@ -56,7 +55,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         //Properties for managing the material design properties
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;}}
-		public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
 		public MouseState MouseState { get; set; }
 
 		protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
@@ -68,28 +66,28 @@ namespace MaterialSkin.Controls
 			{
 				var itemRect = GetItemRect(e.Item);
 				var textRect = new Rectangle(24, itemRect.Y, itemRect.Width - (24 + 16), itemRect.Height);
-				g.DrawString(e.Text, SkinManager.ROBOTO_MEDIUM_10, e.Item.Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush(), textRect, new StringFormat() { LineAlignment = StringAlignment.Center });
+				g.DrawString(e.Text, MaterialSkinManager.ROBOTO_MEDIUM_10, e.Item.Enabled ? MaterialSkinManager.GetPrimaryTextBrush() : MaterialSkinManager.GetDisabledOrHintBrush(), textRect, new StringFormat() { LineAlignment = StringAlignment.Center });
 			}
 			else
 			{
-				g.DrawString(e.Text, SkinManager.ROBOTO_MEDIUM_10, SkinManager.ColorScheme.LightPrimaryBrush, e.TextRectangle, new StringFormat() { LineAlignment = StringAlignment.Center });
+				g.DrawString(e.Text, MaterialSkinManager.ROBOTO_MEDIUM_10, MaterialSkinManager.ColorScheme.LightPrimaryBrush, e.TextRectangle, new StringFormat() { LineAlignment = StringAlignment.Center });
 			}
 		}
 
 		protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
 		{
 			var g = e.Graphics;
-			g.Clear(SkinManager.GetApplicationBackgroundColor());
+			g.Clear(MaterialSkinManager.GetApplicationBackgroundColor());
 
 			//Draw background
 			var itemRect = GetItemRect(e.Item);
 			if (e.Item.IsOnDropDown)
 			{
-				g.FillRectangle(e.Item.Selected && e.Item.Enabled ? SkinManager.GetCmsSelectedItemBrush() : new SolidBrush(SkinManager.GetApplicationBackgroundColor()), itemRect);
+				g.FillRectangle(e.Item.Selected && e.Item.Enabled ? MaterialSkinManager.GetCmsSelectedItemBrush() : new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), itemRect);
 			}
 			else
 			{
-				g.FillRectangle(e.Item.Selected ? SkinManager.GetFlatButtonPressedBackgroundBrush() : new SolidBrush(SkinManager.GetApplicationBackgroundColor()), itemRect);
+				g.FillRectangle(e.Item.Selected ? MaterialSkinManager.GetFlatButtonPressedBackgroundBrush() : new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), itemRect);
 			}
 
 			//Ripple animation
@@ -120,15 +118,15 @@ namespace MaterialSkin.Controls
 		{
 			var g = e.Graphics;
 
-			g.FillRectangle(new SolidBrush(SkinManager.GetApplicationBackgroundColor()), e.Item.Bounds);
-			g.DrawLine(new Pen(SkinManager.GetDividersColor()), new Point(e.Item.Bounds.Left, e.Item.Bounds.Height / 2), new Point(e.Item.Bounds.Right, e.Item.Bounds.Height / 2));
+			g.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), e.Item.Bounds);
+			g.DrawLine(new Pen(MaterialSkinManager.GetDividersColor()), new Point(e.Item.Bounds.Left, e.Item.Bounds.Height / 2), new Point(e.Item.Bounds.Right, e.Item.Bounds.Height / 2));
 		}
 
 		protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
 		{
 			//var g = e.Graphics;
 
-			//g.DrawRectangle(new Pen(SkinManager.GetDividersColor()), new Rectangle(e.AffectedBounds.X, e.AffectedBounds.Y, e.AffectedBounds.Width - 1, e.AffectedBounds.Height - 1));
+			//g.DrawRectangle(new Pen(MaterialSkinManager.GetDividersColor()), new Rectangle(e.AffectedBounds.X, e.AffectedBounds.Y, e.AffectedBounds.Width - 1, e.AffectedBounds.Height - 1));
 		}
 
 		protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
@@ -137,7 +135,7 @@ namespace MaterialSkin.Controls
 			const int ARROW_SIZE = 4;
 
 			var arrowMiddle = new Point(e.ArrowRectangle.X + e.ArrowRectangle.Width / 2, e.ArrowRectangle.Y + e.ArrowRectangle.Height / 2);
-			var arrowBrush = e.Item.Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush();
+			var arrowBrush = e.Item.Enabled ? MaterialSkinManager.GetPrimaryTextBrush() : MaterialSkinManager.GetDisabledOrHintBrush();
 			using (var arrowPath = new GraphicsPath())
 			{
 				arrowPath.AddLines(new[] { new Point(arrowMiddle.X - ARROW_SIZE, arrowMiddle.Y - ARROW_SIZE), new Point(arrowMiddle.X, arrowMiddle.Y), new Point(arrowMiddle.X - ARROW_SIZE, arrowMiddle.Y + ARROW_SIZE) });

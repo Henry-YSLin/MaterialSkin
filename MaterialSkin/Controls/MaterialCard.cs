@@ -21,8 +21,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         public bool Primary { get; set; }
 
@@ -141,7 +139,7 @@ namespace MaterialSkin.Controls
             {
                 Growing = true;
                 Size sz = new Size(InfoLabel.Width, Int32.MaxValue);
-                sz = TextRenderer.MeasureText(InfoLabel.Text, SkinManager.ROBOTO_REGULAR_11, sz, TextFormatFlags.WordBreak);
+                sz = TextRenderer.MeasureText(InfoLabel.Text, MaterialSkinManager.ROBOTO_REGULAR_11, sz, TextFormatFlags.WordBreak);
                 InfoLabel.Height = sz.Height;
             }
             finally
@@ -161,7 +159,7 @@ namespace MaterialSkin.Controls
             G.SmoothingMode = SmoothingMode.HighQuality;
             G.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            Color NonColor = SkinManager.GetDisabledOrHintColor();
+            Color NonColor = MaterialSkinManager.GetDisabledOrHintColor();
 
             var PicBG = DrawHelper.CreateRoundRect(1, 1, 292, 164, 1);
             var UpRoundedRec = DrawHelper.CreateRoundRect(1, 1, 291, 164, 1);
@@ -173,20 +171,20 @@ namespace MaterialSkin.Controls
 
             //if (MouseState == MouseState.HOVER)
             //{
-            //    Color c = SkinManager.GetApplicationBackgroundColor();
+            //    Color c = MaterialSkinManager.GetApplicationBackgroundColor();
             //    G.FillPath(new SolidBrush(Color.FromArgb((int)(0.7*c.A), c.RemoveAlpha())), BG);
             //}
             //else
             //{
-            G.FillPath(new SolidBrush(SkinManager.GetApplicationBackgroundColor()), BG);
+            G.FillPath(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), BG);
             //}
-            G.DrawPath(new Pen(SkinManager.GetDividersColor()), BG);
+            G.DrawPath(new Pen(MaterialSkinManager.GetDividersColor()), BG);
 
 
-            G.DrawString(Text, SkinManager.ROBOTO_MEDIUM_15, Primary ? SkinManager.ColorScheme.PrimaryBrush : SkinManager.GetPrimaryTextBrush(), 12, 176);
+            G.DrawString(Text, MaterialSkinManager.ROBOTO_MEDIUM_15, Primary ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetPrimaryTextBrush(), 12, 176);
 
             G.SmoothingMode = SmoothingMode.None;
-            G.FillRectangle(SkinManager.GetDividersBrush(), 16, InfoLabel.Bottom + 14, 261, 1);
+            G.FillRectangle(MaterialSkinManager.GetDividersBrush(), 16, InfoLabel.Bottom + 14, 261, 1);
 
             if (_image != null)
             {
@@ -198,7 +196,7 @@ namespace MaterialSkin.Controls
                 G.FillPath(new SolidBrush(NonColor), UpRoundedRec);
                 G.DrawPath(new Pen(NonColor), UpRoundedRec);
             }
-            G.DrawPath(new Pen(SkinManager.GetDividersColor()), BG);
+            G.DrawPath(new Pen(MaterialSkinManager.GetDividersColor()), BG);
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(G);
         }
 

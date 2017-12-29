@@ -21,8 +21,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         public new FormBorderStyle FormBorderStyle { get { return base.FormBorderStyle; } set { base.FormBorderStyle = value; } }
         public bool Sizable { get; set; }
@@ -480,9 +478,9 @@ namespace MaterialSkin.Controls
         {
             base.OnResize(e);
 
-            minButtonBounds = new Rectangle((Width - SkinManager.FORM_PADDING / 2) - 3 * STATUS_BAR_BUTTON_WIDTH, 0, STATUS_BAR_BUTTON_WIDTH, STATUS_BAR_HEIGHT);
-            maxButtonBounds = new Rectangle((Width - SkinManager.FORM_PADDING / 2) - 2 * STATUS_BAR_BUTTON_WIDTH, 0, STATUS_BAR_BUTTON_WIDTH, STATUS_BAR_HEIGHT);
-            xButtonBounds = new Rectangle((Width - SkinManager.FORM_PADDING / 2) - STATUS_BAR_BUTTON_WIDTH, 0, STATUS_BAR_BUTTON_WIDTH, STATUS_BAR_HEIGHT);
+            minButtonBounds = new Rectangle((Width - MaterialSkinManager.FORM_PADDING / 2) - 3 * STATUS_BAR_BUTTON_WIDTH, 0, STATUS_BAR_BUTTON_WIDTH, STATUS_BAR_HEIGHT);
+            maxButtonBounds = new Rectangle((Width - MaterialSkinManager.FORM_PADDING / 2) - 2 * STATUS_BAR_BUTTON_WIDTH, 0, STATUS_BAR_BUTTON_WIDTH, STATUS_BAR_HEIGHT);
+            xButtonBounds = new Rectangle((Width - MaterialSkinManager.FORM_PADDING / 2) - STATUS_BAR_BUTTON_WIDTH, 0, STATUS_BAR_BUTTON_WIDTH, STATUS_BAR_HEIGHT);
             statusBarBounds = new Rectangle(0, 0, Width, STATUS_BAR_HEIGHT);
             actionBarBounds = new Rectangle(0, STATUS_BAR_HEIGHT, Width, ACTION_BAR_HEIGHT);
         }
@@ -493,12 +491,12 @@ namespace MaterialSkin.Controls
 
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            g.Clear(SkinManager.GetApplicationBackgroundColor());
-            g.FillRectangle(SkinManager.ColorScheme.DarkPrimaryBrush, statusBarBounds);
-            g.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, actionBarBounds);
+            g.Clear(MaterialSkinManager.GetApplicationBackgroundColor());
+            g.FillRectangle(MaterialSkinManager.ColorScheme.DarkPrimaryBrush, statusBarBounds);
+            g.FillRectangle(MaterialSkinManager.ColorScheme.PrimaryBrush, actionBarBounds);
 
             //Draw border
-            using (var borderPen = new Pen(SkinManager.GetDividersColor(), 1))
+            using (var borderPen = new Pen(MaterialSkinManager.GetDividersColor(), 1))
             {
                 g.DrawLine(borderPen, new Point(0, actionBarBounds.Bottom), new Point(0, Height - 2));
                 g.DrawLine(borderPen, new Point(Width - 1, actionBarBounds.Bottom), new Point(Width - 1, Height - 2));
@@ -508,8 +506,8 @@ namespace MaterialSkin.Controls
             // Determine whether or not we even should be drawing the buttons.
             bool showMin = MinimizeBox && ControlBox;
             bool showMax = MaximizeBox && ControlBox;
-            var hoverBrush = SkinManager.GetFlatButtonHoverBackgroundBrush();
-            var downBrush = SkinManager.GetFlatButtonPressedBackgroundBrush();
+            var hoverBrush = MaterialSkinManager.GetFlatButtonHoverBackgroundBrush();
+            var downBrush = MaterialSkinManager.GetFlatButtonPressedBackgroundBrush();
 
             // When MaximizeButton == false, the minimize button will be painted in its place
             if (buttonState == ButtonState.MinOver && showMin)
@@ -530,7 +528,7 @@ namespace MaterialSkin.Controls
             if (buttonState == ButtonState.XDown && ControlBox)
                 g.FillRectangle(downBrush, xButtonBounds);
 
-            using (var formButtonsPen = new Pen(SkinManager.ACTION_BAR_TEXT_SECONDARY, 2))
+            using (var formButtonsPen = new Pen(MaterialSkinManager.ACTION_BAR_TEXT_SECONDARY, 2))
             {
                 // Minimize button.
                 if (showMin)
@@ -580,7 +578,7 @@ namespace MaterialSkin.Controls
             }
 
             //Form title
-            g.DrawString(Text, SkinManager.ROBOTO_MEDIUM_12, SkinManager.ColorScheme.TextBrush, new Rectangle(SkinManager.FORM_PADDING, STATUS_BAR_HEIGHT, Width, ACTION_BAR_HEIGHT), new StringFormat { LineAlignment = StringAlignment.Center });
+            g.DrawString(Text, MaterialSkinManager.ROBOTO_MEDIUM_12, MaterialSkinManager.ColorScheme.TextBrush, new Rectangle(MaterialSkinManager.FORM_PADDING, STATUS_BAR_HEIGHT, Width, ACTION_BAR_HEIGHT), new StringFormat { LineAlignment = StringAlignment.Center });
             if (!DesignMode && Controls.Count>0 && !resizing) this.DrawChildShadow(g);
         }
 

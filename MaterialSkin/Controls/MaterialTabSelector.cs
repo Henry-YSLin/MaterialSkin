@@ -19,8 +19,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         
 		private MaterialTabControl baseTabControl;
@@ -84,7 +82,7 @@ namespace MaterialSkin.Controls
             var g = e.Graphics;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-			g.Clear(SkinManager.ColorScheme.PrimaryColor);
+			g.Clear(MaterialSkinManager.ColorScheme.PrimaryColor);
 
             if (baseTabControl == null) return;
 
@@ -109,11 +107,11 @@ namespace MaterialSkin.Controls
             foreach (TabPage tabPage in baseTabControl.TabPages)
             {
                 int currentTabIndex = baseTabControl.TabPages.IndexOf(tabPage);
-				Brush textBrush = new SolidBrush(Color.FromArgb(CalculateTextAlpha(currentTabIndex, animationProgress), SkinManager.ColorScheme.TextColor));
+				Brush textBrush = new SolidBrush(Color.FromArgb(CalculateTextAlpha(currentTabIndex, animationProgress), MaterialSkinManager.ColorScheme.TextColor));
 
                 g.DrawString(
                     tabPage.Text.ToUpper(), 
-                    SkinManager.ROBOTO_MEDIUM_10, 
+                    MaterialSkinManager.ROBOTO_MEDIUM_10, 
                     textBrush, 
                     tabRects[currentTabIndex], 
                     new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
@@ -129,14 +127,14 @@ namespace MaterialSkin.Controls
             int x = previousActiveTabRect.X + (int)((activeTabPageRect.X - previousActiveTabRect.X) * animationProgress);
             int width = previousActiveTabRect.Width + (int)((activeTabPageRect.Width - previousActiveTabRect.Width) * animationProgress);
 
-			g.FillRectangle(SkinManager.ColorScheme.AccentBrush, x, y, width, TAB_INDICATOR_HEIGHT);
+			g.FillRectangle(MaterialSkinManager.ColorScheme.AccentBrush, x, y, width, TAB_INDICATOR_HEIGHT);
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
         }
 
         private int CalculateTextAlpha(int tabIndex, double animationProgress)
         {
-            int primaryA = SkinManager.ACTION_BAR_TEXT.A;
-            int secondaryA = SkinManager.ACTION_BAR_TEXT_SECONDARY.A;
+            int primaryA = MaterialSkinManager.ACTION_BAR_TEXT.A;
+            int secondaryA = MaterialSkinManager.ACTION_BAR_TEXT_SECONDARY.A;
 
             if (tabIndex == baseTabControl.SelectedIndex && !animationManager.IsAnimating())
             {
@@ -182,10 +180,10 @@ namespace MaterialSkin.Controls
             {
                 using (var g = Graphics.FromImage(b))
                 {
-                    tabRects.Add(new Rectangle(SkinManager.FORM_PADDING, 0, TAB_HEADER_PADDING * 2 + (int)g.MeasureString(baseTabControl.TabPages[0].Text, SkinManager.ROBOTO_MEDIUM_10).Width, Height));
+                    tabRects.Add(new Rectangle(MaterialSkinManager.FORM_PADDING, 0, TAB_HEADER_PADDING * 2 + (int)g.MeasureString(baseTabControl.TabPages[0].Text, MaterialSkinManager.ROBOTO_MEDIUM_10).Width, Height));
                     for (int i = 1; i < baseTabControl.TabPages.Count; i++)
                     {
-                        tabRects.Add(new Rectangle(tabRects[i - 1].Right, 0, TAB_HEADER_PADDING * 2 + (int)g.MeasureString(baseTabControl.TabPages[i].Text, SkinManager.ROBOTO_MEDIUM_10).Width, Height));
+                        tabRects.Add(new Rectangle(tabRects[i - 1].Right, 0, TAB_HEADER_PADDING * 2 + (int)g.MeasureString(baseTabControl.TabPages[i].Text, MaterialSkinManager.ROBOTO_MEDIUM_10).Width, Height));
                     }
                 }
             }

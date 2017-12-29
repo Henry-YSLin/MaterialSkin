@@ -82,18 +82,6 @@ namespace MaterialSkin.Controls
         public bool OnRight { get; set; }
 
         /// <summary>
-        /// Gets the skin manager.
-        /// </summary>
-        /// <value>
-        /// The skin manager.
-        /// </value>
-        [Browsable(false)]
-        public MaterialSkinManager SkinManager
-        {
-            get { return MaterialSkinManager.Instance; }
-        }
-
-        /// <summary>
         /// Gets or sets the state of the mouse.
         /// </summary>
         /// <value>
@@ -127,16 +115,16 @@ namespace MaterialSkin.Controls
         /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.Clear(SkinManager.GetApplicationBackgroundColor());
-            e.Graphics.FillRectangle(SkinManager.GetDisabledOrHintBrush(), 0, 0, Width, Height);
+            e.Graphics.Clear(MaterialSkinManager.GetApplicationBackgroundColor());
+            e.Graphics.FillRectangle(MaterialSkinManager.GetDisabledOrHintBrush(), 0, 0, Width, Height);
             int doneProgress = (int)(Width * ((double)Value / Maximum));
             if (OnRight)
             {
-                e.Graphics.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, Width - doneProgress, 0, Width, Height);
+                e.Graphics.FillRectangle(MaterialSkinManager.ColorScheme.PrimaryBrush, Width - doneProgress, 0, Width, Height);
             }
             else
             {
-                e.Graphics.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, 0, 0, doneProgress, Height);
+                e.Graphics.FillRectangle(MaterialSkinManager.ColorScheme.PrimaryBrush, 0, 0, doneProgress, Height);
             }
             if (animationManager.IsAnimating())
             {
@@ -150,13 +138,13 @@ namespace MaterialSkin.Controls
                         int oldProgress = (int)(((float)(animationData - _value) / Maximum) * Width);
                         if (OnRight)
                         {
-                            if (DecreaseHighlight) e.Graphics.FillRectangle(SkinManager.Theme == MaterialSkinManager.Themes.DARK ? SkinManager.ColorScheme.DarkPrimaryBrush : SkinManager.ColorScheme.LightPrimaryBrush, Width - doneProgress - oldProgress, 0, oldProgress, Height);
-                            e.Graphics.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, (float)(Width - doneProgress - oldProgress + (oldProgress * animationValue)), 0, (float)(oldProgress - oldProgress * animationValue), Height);
+                            if (DecreaseHighlight) e.Graphics.FillRectangle(MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.ColorScheme.DarkPrimaryBrush : MaterialSkinManager.ColorScheme.LightPrimaryBrush, Width - doneProgress - oldProgress, 0, oldProgress, Height);
+                            e.Graphics.FillRectangle(MaterialSkinManager.ColorScheme.PrimaryBrush, (float)(Width - doneProgress - oldProgress + (oldProgress * animationValue)), 0, (float)(oldProgress - oldProgress * animationValue), Height);
                         }
                         else
                         {
-                            if (DecreaseHighlight) e.Graphics.FillRectangle(SkinManager.Theme == MaterialSkinManager.Themes.DARK ? SkinManager.ColorScheme.DarkPrimaryBrush : SkinManager.ColorScheme.LightPrimaryBrush, doneProgress, 0, oldProgress, Height);
-                            e.Graphics.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, doneProgress, 0, (float)(oldProgress - oldProgress * animationValue), Height);
+                            if (DecreaseHighlight) e.Graphics.FillRectangle(MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK ? MaterialSkinManager.ColorScheme.DarkPrimaryBrush : MaterialSkinManager.ColorScheme.LightPrimaryBrush, doneProgress, 0, oldProgress, Height);
+                            e.Graphics.FillRectangle(MaterialSkinManager.ColorScheme.PrimaryBrush, doneProgress, 0, (float)(oldProgress - oldProgress * animationValue), Height);
                         }
                     }
                     else
@@ -164,13 +152,13 @@ namespace MaterialSkin.Controls
                         int oldProgress = (int)(((float)(_value - animationData) / Maximum) * Width);
                         if (OnRight)
                         {
-                            e.Graphics.FillRectangle(new SolidBrush(SkinManager.GetApplicationBackgroundColor()), Width - doneProgress, 0, (float)(oldProgress - oldProgress * animationValue), Height);
-                            e.Graphics.FillRectangle(SkinManager.GetDisabledOrHintBrush(), Width - doneProgress, 0, (float)(oldProgress - oldProgress * animationValue), Height);
+                            e.Graphics.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), Width - doneProgress, 0, (float)(oldProgress - oldProgress * animationValue), Height);
+                            e.Graphics.FillRectangle(MaterialSkinManager.GetDisabledOrHintBrush(), Width - doneProgress, 0, (float)(oldProgress - oldProgress * animationValue), Height);
                         }
                         else
                         {
-                            e.Graphics.FillRectangle(new SolidBrush(SkinManager.GetApplicationBackgroundColor()), doneProgress - oldProgress + (float)(oldProgress * animationValue), 0, (float)(oldProgress - oldProgress * animationValue), Height);
-                            e.Graphics.FillRectangle(SkinManager.GetDisabledOrHintBrush(), doneProgress - oldProgress + (float)(oldProgress * animationValue), 0, (float)(oldProgress - oldProgress * animationValue), Height);
+                            e.Graphics.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), doneProgress - oldProgress + (float)(oldProgress * animationValue), 0, (float)(oldProgress - oldProgress * animationValue), Height);
+                            e.Graphics.FillRectangle(MaterialSkinManager.GetDisabledOrHintBrush(), doneProgress - oldProgress + (float)(oldProgress * animationValue), 0, (float)(oldProgress - oldProgress * animationValue), Height);
                         }
                     }
                 }

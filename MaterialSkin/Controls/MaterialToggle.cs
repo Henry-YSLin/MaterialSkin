@@ -19,8 +19,6 @@ namespace MaterialSkin.Controls
         GraphicsPath RoundedRectangle;
         private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Browsable(false)]
         public Point MouseLocation { get; set; }
@@ -151,28 +149,28 @@ namespace MaterialSkin.Controls
                 {
                     if (Checked)
                     {
-                        bColor = DrawHelper.BlendColor(SkinManager.GetCheckboxOffColor(), SkinManager.ColorScheme.AccentColor, animationManager.GetProgress() * 255);
+                        bColor = DrawHelper.BlendColor(MaterialSkinManager.GetCheckboxOffColor(), MaterialSkinManager.ColorScheme.AccentColor, animationManager.GetProgress() * 255);
                     }
                     else
                     {
-                        bColor = DrawHelper.BlendColor(SkinManager.ColorScheme.AccentColor, SkinManager.GetCheckboxOffColor(), 255 - animationManager.GetProgress() * 255);
+                        bColor = DrawHelper.BlendColor(MaterialSkinManager.ColorScheme.AccentColor, MaterialSkinManager.GetCheckboxOffColor(), 255 - animationManager.GetProgress() * 255);
                     }
                 }
                 else
                 {
                     if (Checked)
                     {
-                        bColor = SkinManager.ColorScheme.AccentColor;
+                        bColor = MaterialSkinManager.ColorScheme.AccentColor;
                     }
                     else
                     {
-                        bColor = SkinManager.GetCheckboxOffColor();
+                        bColor = MaterialSkinManager.GetCheckboxOffColor();
                     }
                 }
             }
             else
             {
-                bColor = SkinManager.GetCheckBoxOffDisabledColor();
+                bColor = MaterialSkinManager.GetCheckBoxOffDisabledColor();
             }
             Color aColor;
             if (Enabled)
@@ -181,28 +179,28 @@ namespace MaterialSkin.Controls
                 {
                     if (Checked)
                     {
-                        aColor = DrawHelper.BlendColor(SkinManager.ColorScheme.LightPrimaryColor, SkinManager.ColorScheme.PrimaryColor, animationManager.GetProgress() * 255);
+                        aColor = DrawHelper.BlendColor(MaterialSkinManager.ColorScheme.LightPrimaryColor, MaterialSkinManager.ColorScheme.PrimaryColor, animationManager.GetProgress() * 255);
                     }
                     else
                     {
-                        aColor = DrawHelper.BlendColor(SkinManager.ColorScheme.PrimaryColor, SkinManager.ColorScheme.LightPrimaryColor, 255 - animationManager.GetProgress() * 255);
+                        aColor = DrawHelper.BlendColor(MaterialSkinManager.ColorScheme.PrimaryColor, MaterialSkinManager.ColorScheme.LightPrimaryColor, 255 - animationManager.GetProgress() * 255);
                     }
                 }
                 else
                 {
                     if (Checked)
                     {
-                        aColor = SkinManager.ColorScheme.PrimaryColor;
+                        aColor = MaterialSkinManager.ColorScheme.PrimaryColor;
                     }
                     else
                     {
-                        aColor = SkinManager.ColorScheme.LightPrimaryColor;
+                        aColor = MaterialSkinManager.ColorScheme.LightPrimaryColor;
                     }
                 }
             }
             else
             {
-                aColor = SkinManager.GetCheckBoxOffDisabledColor();
+                aColor = MaterialSkinManager.GetCheckBoxOffDisabledColor();
             }
 
             G.FillPath(new SolidBrush(Color.FromArgb(115, bColor)), RoundedRectangle);
@@ -215,8 +213,8 @@ namespace MaterialSkin.Controls
                 for (int i = 0; i < rippleAnimationManager.GetAnimationCount(); i++)
                 {
                     var animationValue = rippleAnimationManager.GetProgress(i);
-                    int colorAlpha = Enabled ? (int)(animationValue * 255.0) : SkinManager.GetCheckBoxOffDisabledColor().A;
-                    var brush = new SolidBrush(Color.FromArgb(colorAlpha, Enabled ? SkinManager.ColorScheme.AccentColor : SkinManager.GetCheckBoxOffDisabledColor()));
+                    int colorAlpha = Enabled ? (int)(animationValue * 255.0) : MaterialSkinManager.GetCheckBoxOffDisabledColor().A;
+                    var brush = new SolidBrush(Color.FromArgb(colorAlpha, Enabled ? MaterialSkinManager.ColorScheme.AccentColor : MaterialSkinManager.GetCheckBoxOffDisabledColor()));
                     var animationSource = new Point((int)(23f + 20f * (float)animationManager.GetProgress()), Height / 2);
                     var rippleBrush = new SolidBrush(Color.FromArgb((int)((animationValue * 40)), ((bool)rippleAnimationManager.GetData(i)[0]) ? Color.Black : brush.Color));
                     var rippleHeight = (Height % 2 == 0) ? Height - 3 : Height - 2;
@@ -238,7 +236,7 @@ namespace MaterialSkin.Controls
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            Font = SkinManager.ROBOTO_MEDIUM_10;
+            Font = MaterialSkinManager.ROBOTO_MEDIUM_10;
 
             if (DesignMode) return;
 

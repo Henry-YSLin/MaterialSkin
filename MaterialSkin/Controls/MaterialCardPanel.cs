@@ -21,8 +21,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
 
         private readonly AnimationManager animationManager;
@@ -68,7 +66,7 @@ namespace MaterialSkin.Controls
             G.SmoothingMode = SmoothingMode.HighQuality;
             G.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            Color NonColor = SkinManager.GetDisabledOrHintColor();
+            Color NonColor = MaterialSkinManager.GetDisabledOrHintColor();
 
             var PicBG = DrawHelper.CreateRoundRect(1, 1, 292, 164, 1);
             var UpRoundedRec = DrawHelper.CreateRoundRect(1, 1, 291, 164, 1);
@@ -79,7 +77,7 @@ namespace MaterialSkin.Controls
             G.DrawPath(new Pen(NonColor), ShadowBG);
             if (animationManager.IsAnimating())
             {
-                G.FillPath(new SolidBrush(SkinManager.GetApplicationBackgroundColor()), BG);
+                G.FillPath(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), BG);
                 G.SetClip(BG);
                 G.SmoothingMode = SmoothingMode.AntiAlias;
                 for (int i = 0; i < animationManager.GetAnimationCount(); i++)
@@ -87,7 +85,7 @@ namespace MaterialSkin.Controls
                     var animationValue = animationManager.GetProgress(i);
                     var animationSource = animationManager.GetSource(i);
 
-                    using (Brush rippleBrush = new SolidBrush(SkinManager.ColorScheme.PrimaryColor))
+                    using (Brush rippleBrush = new SolidBrush(MaterialSkinManager.ColorScheme.PrimaryColor))
                     {
                         var rippleSize = (int)(animationValue * Math.Max(Width,Height)*2.5);
                         G.FillEllipse(rippleBrush, new Rectangle(animationSource.X - rippleSize / 2, animationSource.Y - rippleSize / 2, rippleSize, rippleSize));
@@ -98,9 +96,9 @@ namespace MaterialSkin.Controls
             }
             else
             {
-                G.FillPath(new SolidBrush(Primary ? SkinManager.ColorScheme.PrimaryColor : SkinManager.GetApplicationBackgroundColor()), BG);
+                G.FillPath(new SolidBrush(Primary ? MaterialSkinManager.ColorScheme.PrimaryColor : MaterialSkinManager.GetApplicationBackgroundColor()), BG);
             }
-            G.DrawPath(new Pen(SkinManager.GetDividersColor()), BG);
+            G.DrawPath(new Pen(MaterialSkinManager.GetDividersColor()), BG);
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(G);
         }
 

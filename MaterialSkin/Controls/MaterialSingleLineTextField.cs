@@ -20,8 +20,6 @@ namespace MaterialSkin.Controls
         //Properties for managing the material design properties
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
 
         public override string Text { get { return baseTextBox.Text; } set { baseTextBox.Text = value; } }
@@ -963,8 +961,8 @@ namespace MaterialSkin.Controls
             baseTextBox = new BaseTextBox
             {
                 BorderStyle = BorderStyle.None,
-                Font = SkinManager.ROBOTO_REGULAR_11,
-                ForeColor = SkinManager.GetPrimaryTextColor(),
+                Font = MaterialSkinManager.ROBOTO_REGULAR_11,
+                ForeColor = MaterialSkinManager.GetPrimaryTextColor(),
                 Location = new Point(0, 0),
                 Width = Width,
                 Height = Height - 5
@@ -980,7 +978,7 @@ namespace MaterialSkin.Controls
             BackColorChanged += (sender, args) =>
             {
                 baseTextBox.BackColor = BackColor;
-                baseTextBox.ForeColor = SkinManager.GetPrimaryTextColor();
+                baseTextBox.ForeColor = MaterialSkinManager.GetPrimaryTextColor();
             };
 
 			//Fix for tabstop
@@ -997,7 +995,7 @@ namespace MaterialSkin.Controls
             if (!animationManager.IsAnimating())
             {
                 //No animation
-				g.FillRectangle(baseTextBox.Focused ? SkinManager.ColorScheme.PrimaryBrush : SkinManager.GetDividersBrush(), baseTextBox.Location.X, lineY, baseTextBox.Width, baseTextBox.Focused ? 2 : 1);
+				g.FillRectangle(baseTextBox.Focused ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetDividersBrush(), baseTextBox.Location.X, lineY, baseTextBox.Width, baseTextBox.Focused ? 2 : 1);
             }
             else
             {
@@ -1007,10 +1005,10 @@ namespace MaterialSkin.Controls
                 int animationStart = baseTextBox.Location.X + baseTextBox.Width / 2;
 
                 //Unfocused background
-                g.FillRectangle(SkinManager.GetDividersBrush(), baseTextBox.Location.X, lineY, baseTextBox.Width, 1);
+                g.FillRectangle(MaterialSkinManager.GetDividersBrush(), baseTextBox.Location.X, lineY, baseTextBox.Width, 1);
 
                 //Animated focus transition
-				g.FillRectangle(SkinManager.ColorScheme.PrimaryBrush, animationStart - halfAnimationWidth, lineY, animationWidth, 2);
+				g.FillRectangle(MaterialSkinManager.ColorScheme.PrimaryBrush, animationStart - halfAnimationWidth, lineY, animationWidth, 2);
             }
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
         }
@@ -1032,7 +1030,7 @@ namespace MaterialSkin.Controls
             base.OnCreateControl();
 
             baseTextBox.BackColor = BackColor;
-            baseTextBox.ForeColor = SkinManager.GetPrimaryTextColor();
+            baseTextBox.ForeColor = MaterialSkinManager.GetPrimaryTextColor();
             baseTextBox.Location = new Point(0, 0);
             baseTextBox.Width = Width;
             Height = baseTextBox.Height + 5;

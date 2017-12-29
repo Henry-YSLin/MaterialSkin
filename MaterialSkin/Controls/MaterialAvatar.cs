@@ -19,8 +19,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
 
         public int IconSize { get; set; } = 48;
@@ -98,8 +96,8 @@ namespace MaterialSkin.Controls
             }
             else
             {
-                G.FillEllipse(Primary ? SkinManager.ColorScheme.PrimaryBrush : SkinManager.GetRaisedButtonBackgroundBrush(), 0, 0, IconSize - 1, IconSize - 1);
-                G.DrawString(Text, SkinManager.ROBOTO_MEDIUM_15, SkinManager.GetRaisedButtonTextBrush(Primary), new RectangleF(0, 0, IconSize - 1, IconSize - 1), new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                G.FillEllipse(Primary ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetRaisedButtonBackgroundBrush(), 0, 0, IconSize - 1, IconSize - 1);
+                G.DrawString(Text, MaterialSkinManager.ROBOTO_MEDIUM_15, MaterialSkinManager.GetRaisedButtonTextBrush(Primary), new RectangleF(0, 0, IconSize - 1, IconSize - 1), new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
             }
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(G);
         }

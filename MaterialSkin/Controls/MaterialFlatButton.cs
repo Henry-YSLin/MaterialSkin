@@ -20,8 +20,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         public bool Primary { get; set; }
 
@@ -42,7 +40,7 @@ namespace MaterialSkin.Controls
             set
             {
                 _fSize = value;
-                Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+                Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
             }
         }
 
@@ -88,7 +86,7 @@ namespace MaterialSkin.Controls
             AutoSize = false;
             Margin = new Padding(4, 6, 4, 6);
             Padding = new Padding(0);
-            Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+            Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
         }
 
         private void AnimationManager_OnAnimationFinished(object sender)
@@ -121,7 +119,7 @@ namespace MaterialSkin.Controls
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
             //Hover
-            Color c = SkinManager.GetFlatButtonHoverBackgroundColor();
+            Color c = MaterialSkinManager.GetFlatButtonHoverBackgroundColor();
             using (Brush b = new SolidBrush(Color.FromArgb((int)(hoverAnimationManager.GetProgress() * c.A), c.RemoveAlpha())))
                 g.FillRectangle(b, ClientRectangle);
 
@@ -178,7 +176,7 @@ namespace MaterialSkin.Controls
             g.DrawString(
                 Text.ToUpper(),
                 Font,
-                Enabled ? (Primary ? SkinManager.ColorScheme.PrimaryBrush : SkinManager.GetPrimaryTextBrush()) : SkinManager.GetFlatButtonDisabledTextBrush(),
+                Enabled ? (Primary ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetPrimaryTextBrush()) : MaterialSkinManager.GetFlatButtonDisabledTextBrush(),
                 textRect,
                 new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center }
                 );

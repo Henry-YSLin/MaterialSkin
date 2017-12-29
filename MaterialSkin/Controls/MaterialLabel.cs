@@ -14,8 +14,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Category("Appearance")]
         public bool Primary { get; set; }
@@ -28,7 +26,7 @@ namespace MaterialSkin.Controls
             set
             {
                 _fSize = value;
-                Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+                Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
             }
         }
 
@@ -43,23 +41,23 @@ namespace MaterialSkin.Controls
             base.OnCreateControl();
             if (Primary)
             {
-                ForeColor = SkinManager.GetPrimaryTextColor();
+                ForeColor = MaterialSkinManager.GetPrimaryTextColor();
             }
             else
             {
-                ForeColor = SkinManager.GetSecondaryTextColor();
+                ForeColor = MaterialSkinManager.GetSecondaryTextColor();
             }
-            Font = new Font(SkinManager.ROBOTO_REGULAR_11.FontFamily, FontSize);
+            Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, FontSize);
 
             BackColorChanged += (sender, args) =>
             {
                 if (Primary)
                 {
-                    ForeColor = SkinManager.GetPrimaryTextColor();
+                    ForeColor = MaterialSkinManager.GetPrimaryTextColor();
                 }
                 else
                 {
-                    ForeColor = SkinManager.GetSecondaryTextColor();
+                    ForeColor = MaterialSkinManager.GetSecondaryTextColor();
                 }
             };
         }

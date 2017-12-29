@@ -19,8 +19,6 @@ namespace MaterialSkin.Controls
         public GraphicsPath ShadowShape { get; set; }
         private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
         [Browsable(false)]
-        public MaterialSkinManager SkinManager { get { return MaterialSkinManager.Instance; } }
-        [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Browsable(false)]
         public Point MouseLocation { get; set; }
@@ -146,7 +144,7 @@ namespace MaterialSkin.Controls
 
         public override Size GetPreferredSize(Size proposedSize)
         {
-            int width = boxOffset + 20 + (int)CreateGraphics().MeasureString(Text, SkinManager.ROBOTO_MEDIUM_10).Width;
+            int width = boxOffset + 20 + (int)CreateGraphics().MeasureString(Text, MaterialSkinManager.ROBOTO_MEDIUM_10).Width;
             return Ripple ? new Size(width, 30) : new Size(width, 20);
         }
 
@@ -161,13 +159,13 @@ namespace MaterialSkin.Controls
 
             var animationProgress = animationManager.GetProgress();
 
-            int colorAlpha = Enabled ? (int)(animationProgress * 255.0) : SkinManager.GetCheckBoxOffDisabledColor().A;
-            int backgroundAlpha = Enabled ? (int)(SkinManager.GetCheckboxOffColor().A * (1.0 - animationProgress)) : SkinManager.GetCheckBoxOffDisabledColor().A;
+            int colorAlpha = Enabled ? (int)(animationProgress * 255.0) : MaterialSkinManager.GetCheckBoxOffDisabledColor().A;
+            int backgroundAlpha = Enabled ? (int)(MaterialSkinManager.GetCheckboxOffColor().A * (1.0 - animationProgress)) : MaterialSkinManager.GetCheckBoxOffDisabledColor().A;
             float animationSize = (float)(animationProgress * 8f);
             float animationSizeHalf = animationSize / 2;
             animationSize = (float)(animationProgress * 9f);
 
-            var brush = new SolidBrush(Color.FromArgb(colorAlpha, Enabled ? SkinManager.ColorScheme.AccentColor : SkinManager.GetCheckBoxOffDisabledColor()));
+            var brush = new SolidBrush(Color.FromArgb(colorAlpha, Enabled ? MaterialSkinManager.ColorScheme.AccentColor : MaterialSkinManager.GetCheckBoxOffDisabledColor()));
             var pen = new Pen(brush.Color);
 
             // draw ripple animation
@@ -190,7 +188,7 @@ namespace MaterialSkin.Controls
             }
 
             // draw radiobutton circle
-            Color uncheckedColor = DrawHelper.BlendColor(Parent.BackColor, Enabled ? SkinManager.GetCheckboxOffColor() : SkinManager.GetCheckBoxOffDisabledColor(), backgroundAlpha);
+            Color uncheckedColor = DrawHelper.BlendColor(Parent.BackColor, Enabled ? MaterialSkinManager.GetCheckboxOffColor() : MaterialSkinManager.GetCheckBoxOffDisabledColor(), backgroundAlpha);
 
             using (var path = DrawHelper.CreateRoundRect(boxOffset, boxOffset, RADIOBUTTON_SIZE, RADIOBUTTON_SIZE, 9f))
             {
@@ -216,8 +214,8 @@ namespace MaterialSkin.Controls
                     g.FillPath(brush, path);
                 }
             }
-            SizeF stringSize = g.MeasureString(Text, SkinManager.ROBOTO_MEDIUM_10);
-            g.DrawString(Text, SkinManager.ROBOTO_MEDIUM_10, Enabled ? SkinManager.GetPrimaryTextBrush() : SkinManager.GetDisabledOrHintBrush(), boxOffset + 22, Height / 2 - stringSize.Height / 2);
+            SizeF stringSize = g.MeasureString(Text, MaterialSkinManager.ROBOTO_MEDIUM_10);
+            g.DrawString(Text, MaterialSkinManager.ROBOTO_MEDIUM_10, Enabled ? MaterialSkinManager.GetPrimaryTextBrush() : MaterialSkinManager.GetDisabledOrHintBrush(), boxOffset + 22, Height / 2 - stringSize.Height / 2);
 
             brush.Dispose();
             pen.Dispose();
@@ -232,7 +230,7 @@ namespace MaterialSkin.Controls
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            Font = SkinManager.ROBOTO_MEDIUM_10;
+            Font = MaterialSkinManager.ROBOTO_MEDIUM_10;
 
             if (DesignMode) return;
 
