@@ -96,6 +96,7 @@ namespace MaterialSkin.Controls
         private const int WM_SYSCOMMAND = 0x0112;
         private const int WS_MINIMIZEBOX = 0x20000;
         private const int WS_SYSMENU = 0x00080000;
+        private const int CS_DROPSHADOW = 0x20000;
 
         private const int MONITOR_DEFAULTTONEAREST = 2;
 
@@ -270,6 +271,7 @@ namespace MaterialSkin.Controls
                 // WS_SYSMENU: Trigger the creation of the system menu
                 // WS_MINIMIZEBOX: Allow minimizing from taskbar
                 par.Style = par.Style | WS_MINIMIZEBOX | WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
+                par.ClassStyle |= CS_DROPSHADOW;
                 return par;
             }
         }
