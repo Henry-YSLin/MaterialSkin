@@ -67,6 +67,7 @@ Another way of doing this step would be cloning the project from GitHub, compili
 **4. Initialize your colorscheme**
 
   Set your preferred colors & theme. Also add the form to the manager so it keeps updated if the color scheme or theme changes later on.
+  Set MaterialSkinManager.SoftShadow to true if you want shadows for controls.
 
 C# (Form1.cs)
   ```cs
@@ -74,10 +75,10 @@ C# (Form1.cs)
   {
       InitializeComponent();
 
-      var materialSkinManager = MaterialSkinManager.Instance;
-      materialSkinManager.AddFormToManage(this);
-      materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-      materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+      MaterialSkinManager.AddFormToManage(this);
+      MaterialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+      MaterialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+      MaterialSkinManager.SoftShadow = true; //false for no shadow
   }
   ```
 
@@ -88,10 +89,10 @@ Imports MaterialSkin
 Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim SkinManager As MaterialSkinManager = MaterialSkinManager.Instance
-        SkinManager.AddFormToManage(Me)
-        SkinManager.Theme = MaterialSkinManager.Themes.LIGHT
-        SkinManager.ColorScheme = New ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE)
+        MaterialSkinManager.AddFormToManage(Me)
+        MaterialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT
+        MaterialSkinManager.ColorScheme = New ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE)
+        MaterialSkinManager.SoftShadow = True 'False for no shadow
     End Sub
 End Class
 ```
