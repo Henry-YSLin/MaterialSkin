@@ -124,6 +124,9 @@ namespace MaterialSkin
 
         public static bool SoftShadow { get; set; }
 
+        //NOT IMPLEMENTED
+        public static bool PrepareShadowOnStart { get; set; }
+
         public static Color GetPrimaryTextColor()
         {
             return (Theme == Themes.LIGHT ? PRIMARY_TEXT_BLACK : PRIMARY_TEXT_WHITE);

@@ -12,10 +12,10 @@ namespace MaterialSkinExample
             InitializeComponent();
 
             // Initialize MaterialSkinManager
-            MaterialSkinManager.AddFormToManage(this);
             MaterialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             MaterialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             MaterialSkinManager.SoftShadow = true;
+            MaterialSkinManager.AddFormToManage(this);
 			// Add dummy data to the listview
 	        seedListView();
         }

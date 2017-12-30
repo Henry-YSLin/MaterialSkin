@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using MaterialSkin.Animations;
 using System.Collections.Generic;
 using System.Linq;
+using MaterialSkin;
 
 namespace MaterialSkin.Controls
 {
@@ -68,7 +69,7 @@ namespace MaterialSkin.Controls
             Width = IconSize;
             Height = IconSize;
             Shadow = null;
-                ShadowShape = null;
+            ShadowShape = null;
         }
 
         public MaterialAvatar()

@@ -74,7 +74,7 @@ namespace MaterialSkin
                             Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth , MaterialSkinManager.SHADOW_COLOR);
                             Color softShadow = Color.FromArgb(Math.Max(10, MaterialSkinManager.SOFT_SHADOW_COLOR.A - p.Depth * 3 / 2), MaterialSkinManager.SOFT_SHADOW_COLOR);
                             //if (p.ShadowShape != null)
-                            //{//BUGGY HERE
+                            //{//NOT IMPLEMENTED
                             //    PointF midPt = new Point(p2.Left + p2.Width / 2, p2.Top + p2.Height / 2);
                             //    GraphicsPath gp = (GraphicsPath)p.ShadowShape.Clone();
                             //    gp.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
