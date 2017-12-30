@@ -105,13 +105,6 @@ If you love .NET and Material Design, you should definitely check out [Material 
 
 ---
 
-
-#### State of the project
-
-This project is no longer under active development. Though, contributions are still welcome and the community will likely still help if you open an issue.
-
----
-
 #### Images
 
 ![alt tag](http://i.imgur.com/Ub0N9Xf.png)
