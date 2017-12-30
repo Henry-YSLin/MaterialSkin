@@ -60,6 +60,23 @@ namespace MaterialSkin.Controls
             }
         }
 
+        private int _roundedCorner = 2;
+        [Browsable(true)]
+        [Category("Appearance")]
+        public int RoundedCornerRadius
+        {
+            get
+            {
+                return _roundedCorner;
+            }
+            set
+            {
+                _roundedCorner = value;
+                OnResize(null);
+                Invalidate();
+            }
+        }
+
         public MaterialFlatButton()
         {
             SetStyle(ControlStyles.UserPaint, true);
@@ -119,10 +136,16 @@ namespace MaterialSkin.Controls
             var g = pevent.Graphics;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
+            GraphicsPath bgGP = DrawHelper.CreateRoundRect(ClientRectangle.X,
+                ClientRectangle.Y,
+                ClientRectangle.Width - 1,
+                ClientRectangle.Height - 1,
+                _roundedCorner);
+
             //Hover
             Color c = MaterialSkinManager.GetFlatButtonHoverBackgroundColor();
             using (Brush b = new SolidBrush(Color.FromArgb((int)(hoverAnimationManager.GetProgress() * c.A), c.RemoveAlpha())))
-                g.FillRectangle(b, ClientRectangle);
+                g.FillPath(b, bgGP);
 
             //Ripple
             if (animationManager.IsAnimating())
@@ -188,12 +211,11 @@ namespace MaterialSkin.Controls
         {
             base.OnResize(eventargs);
             Shadow = null;
-            ShadowShape = null; 
-            //ShadowShape = DrawHelper.CreateRoundRect(ClientRectangle.X,
-            //ClientRectangle.Y,
-            //    ClientRectangle.Width - 1,
-            //    ClientRectangle.Height - 1,
-            //    1f); //DEBUG
+            ShadowShape = DrawHelper.CreateRoundRect(ClientRectangle.X,
+                ClientRectangle.Y,
+                ClientRectangle.Width - 1,
+                ClientRectangle.Height - 1,
+                _roundedCorner); 
         }
 
         private Size GetPreferredSize()

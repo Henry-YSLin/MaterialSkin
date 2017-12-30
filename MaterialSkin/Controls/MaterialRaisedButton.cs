@@ -30,6 +30,7 @@ namespace MaterialSkin.Controls
         private readonly AnimationManager hoverAnimationManager;
 
         private int _fSize = 9;
+        [Browsable(true)]
         [Category("Appearance")]
         public int FontSize
         {
@@ -44,9 +45,27 @@ namespace MaterialSkin.Controls
             }
         }
 
+        private int _roundedCorner = 2;
+        [Browsable(true)]
+        [Category("Appearance")]
+        public int RoundedCornerRadius
+        {
+            get
+            {
+                return _roundedCorner;
+            }
+            set
+            {
+                _roundedCorner = value;
+                OnResize(null);
+                Invalidate();
+            }
+        }
+
         private SizeF textSize;
 
         private Image _icon;
+        [Browsable(true)]
         public Image Icon
         {
             get { return _icon; }
@@ -116,7 +135,7 @@ namespace MaterialSkin.Controls
                 ClientRectangle.Y,
                 ClientRectangle.Width - 1,
                 ClientRectangle.Height - 1,
-                1f);
+                _roundedCorner);
         }
 
         protected override void OnPaint(PaintEventArgs pevent)
@@ -130,7 +149,7 @@ namespace MaterialSkin.Controls
                 ClientRectangle.Y,
                 ClientRectangle.Width - 1,
                 ClientRectangle.Height - 1,
-                1f))
+                _roundedCorner))
             {
                 g.FillPath(Primary ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetRaisedButtonBackgroundBrush(), backgroundPath);
                 Color c = MaterialSkinManager.GetFlatButtonHoverBackgroundColor();

@@ -69,30 +69,30 @@ namespace MaterialSkin
                     if (p2.Visible != false && p.Depth!=0)
                     {
                         if (p.Shadow == null) {
-                            Bitmap sBMP = new Bitmap(p2.Width + p.Depth * 6, p2.Height + p.Depth * 6);
+                            Bitmap sBMP = new Bitmap(p2.Width + p.Depth * 18, p2.Height + p.Depth * 18);
                             Graphics sg = Graphics.FromImage(sBMP);
-                            Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth * 4, MaterialSkinManager.SHADOW_COLOR);
-                            Color softShadow = Color.FromArgb(MaterialSkinManager.SOFT_SHADOW_COLOR.A - p.Depth / 2, MaterialSkinManager.SOFT_SHADOW_COLOR);
-                            if (p.ShadowShape != null)
-                            {//BUGGY HERE
-                                PointF midPt = new Point(p2.Left + p2.Width / 2, p2.Top + p2.Height / 2);
-                                GraphicsPath gp = (GraphicsPath)p.ShadowShape.Clone();
-                                gp.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
-                                sg.FillPath(new SolidBrush(softShadow), gp);
-                                GraphicsPath gp2 = (GraphicsPath)p.ShadowShape.Clone();
-                                gp2.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
-                                sg.FillPath(new SolidBrush(shadow), gp2);
-                            }
-                            else
-                            {
-                                sg.FillRectangle(new SolidBrush(softShadow), p.Depth * 3 - p.Depth / 4, p.Depth * 3 - p.Depth / 4, p2.Width + p.Depth / 2, p2.Height + p.Depth / 2);
-                                sg.FillRectangle(new SolidBrush(shadow), p.Depth * 3 + p.Depth / 4, p.Depth * 3 + p.Depth / 4, p2.Width + p.Depth / 4, p2.Height + p.Depth / 4);
-                            }
+                            Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth , MaterialSkinManager.SHADOW_COLOR);
+                            Color softShadow = Color.FromArgb(Math.Max(10, MaterialSkinManager.SOFT_SHADOW_COLOR.A - p.Depth * 3 / 2), MaterialSkinManager.SOFT_SHADOW_COLOR);
+                            //if (p.ShadowShape != null)
+                            //{//BUGGY HERE
+                            //    PointF midPt = new Point(p2.Left + p2.Width / 2, p2.Top + p2.Height / 2);
+                            //    GraphicsPath gp = (GraphicsPath)p.ShadowShape.Clone();
+                            //    gp.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
+                            //    sg.FillPath(new SolidBrush(softShadow), gp);
+                            //    GraphicsPath gp2 = (GraphicsPath)p.ShadowShape.Clone();
+                            //    gp2.ScaleAroundPivot(1.5f, 1.5f, midPt.X, midPt.Y);
+                            //    sg.FillPath(new SolidBrush(shadow), gp2);
+                            //}
+                            //else
+                            //{
+                                sg.FillRectangle(new SolidBrush(softShadow), p.Depth * 9 - p.Depth * 3 / 2, p.Depth * 9 - p.Depth * 3 / 2, p2.Width + p.Depth * 3, p2.Height + p.Depth * 3);
+                                sg.FillRectangle(new SolidBrush(shadow), p.Depth * 9 + p.Depth * 3 / 8 + 4, p.Depth * 9 + p.Depth / 2 + 5, p2.Width - p.Depth * 3 / 4 - 8, p2.Height + p.Depth / 2 - 7);
+                            //}
                             sg.Flush(FlushIntention.Sync);
-                            sBMP = sBMP.Blur((int)Math.Floor(p.Depth / 4f) + 1);
+                            sBMP = sBMP.Blur(p.Depth + 1);
                             p.Shadow = sBMP;
                         }
-                        g.DrawImage(p.Shadow, p2.Left - p.Depth * 3, p2.Top - p.Depth * 3);
+                        g.DrawImage(p.Shadow, p2.Left - p.Depth * 9, p2.Top - p.Depth * 9);
                     }
                 }
             }
