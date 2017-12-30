@@ -24,6 +24,23 @@ namespace MaterialSkin.Controls
         [Browsable(false)]
         public MouseState MouseState { get; set; }
 
+        private int _roundedCorner = 2;
+        [Browsable(true)]
+        [Category("Appearance")]
+        public int RoundedCornerRadius
+        {
+            get
+            {
+                return _roundedCorner;
+            }
+            set
+            {
+                _roundedCorner = value;
+                OnResize(null);
+                Invalidate();
+            }
+        }
+
         public MaterialPanel()
         {
             SetStyle(ControlStyles.UserPaint, true);
@@ -35,6 +52,12 @@ namespace MaterialSkin.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            GraphicsPath bgGP = DrawHelper.CreateRoundRect(ClientRectangle.X,
+                ClientRectangle.Y,
+                ClientRectangle.Width - 1,
+                ClientRectangle.Height - 1,
+                _roundedCorner);
+            e.Graphics.FillPath(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), bgGP);
 
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(e.Graphics);
         }
@@ -43,6 +66,11 @@ namespace MaterialSkin.Controls
         {
             base.OnResize(eventargs);
             Shadow = null;
+            ShadowShape = DrawHelper.CreateRoundRect(ClientRectangle.X,
+                ClientRectangle.Y,
+                ClientRectangle.Width - 1,
+                ClientRectangle.Height - 1,
+                _roundedCorner);
         }
     }
 }

@@ -341,6 +341,11 @@ namespace MaterialSkin
                 controlToUpdate.BackColor = newBackColor;
             }
 
+            if (controlToUpdate is MaterialLabel)
+            {
+                controlToUpdate.BackColor = newBackColor;
+            }
+
             //recursive call
             foreach (Control control in controlToUpdate.Controls)
             {

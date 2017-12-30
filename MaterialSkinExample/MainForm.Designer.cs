@@ -33,13 +33,18 @@ namespace MaterialSkinExample
         /// </summary>
         private void InitializeComponent()
         {
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath1 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath2 = new System.Drawing.Drawing2D.GraphicsPath();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath19 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath23 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath24 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath21 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath20 = new System.Drawing.Drawing2D.GraphicsPath();
-            System.Drawing.Drawing2D.GraphicsPath graphicsPath22 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath3 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath4 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath5 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath6 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath9 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath7 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath8 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath10 = new System.Drawing.Drawing2D.GraphicsPath();
+            System.Drawing.Drawing2D.GraphicsPath graphicsPath11 = new System.Drawing.Drawing2D.GraphicsPath();
             this.materialFlatButton2 = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialFlatButton1 = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
@@ -77,6 +82,8 @@ namespace MaterialSkinExample
             this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
             this.tabPage6 = new MaterialSkin.Controls.MaterialTabPage();
             this.materialCardPanel1 = new MaterialSkin.Controls.MaterialCardPanel();
+            this.materialPanel1 = new MaterialSkin.Controls.MaterialPanel();
+            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.materialToggle1 = new MaterialSkin.Controls.MaterialToggle();
             this.materialSmallCard1 = new MaterialSkin.Controls.MaterialSmallCard();
             this.materialAvatar1 = new MaterialSkin.Controls.MaterialAvatar();
@@ -98,6 +105,7 @@ namespace MaterialSkinExample
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.materialCardPanel1.SuspendLayout();
+            this.materialPanel1.SuspendLayout();
             this.materialContextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,8 +124,10 @@ namespace MaterialSkinExample
             this.materialFlatButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFlatButton2.Name = "materialFlatButton2";
             this.materialFlatButton2.Primary = false;
+            this.materialFlatButton2.RoundedCornerRadius = 2;
             this.materialFlatButton2.Shadow = null;
-            this.materialFlatButton2.ShadowShape = null;
+            graphicsPath1.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialFlatButton2.ShadowShape = graphicsPath1;
             this.materialFlatButton2.Size = new System.Drawing.Size(92, 36);
             this.materialFlatButton2.TabIndex = 13;
             this.materialFlatButton2.Text = "Secondary";
@@ -138,8 +148,10 @@ namespace MaterialSkinExample
             this.materialFlatButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFlatButton1.Name = "materialFlatButton1";
             this.materialFlatButton1.Primary = true;
+            this.materialFlatButton1.RoundedCornerRadius = 2;
             this.materialFlatButton1.Shadow = null;
-            this.materialFlatButton1.ShadowShape = null;
+            graphicsPath2.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialFlatButton1.ShadowShape = graphicsPath2;
             this.materialFlatButton1.Size = new System.Drawing.Size(74, 36);
             this.materialFlatButton1.TabIndex = 1;
             this.materialFlatButton1.Text = "Primary";
@@ -366,9 +378,10 @@ namespace MaterialSkinExample
             this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton1.Name = "materialButton1";
             this.materialButton1.Primary = true;
+            this.materialButton1.RoundedCornerRadius = 2;
             this.materialButton1.Shadow = null;
-            graphicsPath19.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.materialButton1.ShadowShape = graphicsPath19;
+            graphicsPath3.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialButton1.ShadowShape = graphicsPath3;
             this.materialButton1.Size = new System.Drawing.Size(114, 36);
             this.materialButton1.TabIndex = 0;
             this.materialButton1.Text = "Change Theme";
@@ -445,7 +458,7 @@ namespace MaterialSkinExample
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Shadow = null;
             this.tabPage1.ShadowShape = null;
-            this.tabPage1.Size = new System.Drawing.Size(725, 350);
+            this.tabPage1.Size = new System.Drawing.Size(725, 362);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             // 
@@ -483,9 +496,10 @@ namespace MaterialSkinExample
             this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton1.Name = "materialRaisedButton1";
             this.materialRaisedButton1.Primary = true;
+            this.materialRaisedButton1.RoundedCornerRadius = 2;
             this.materialRaisedButton1.Shadow = null;
-            graphicsPath23.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.materialRaisedButton1.ShadowShape = graphicsPath23;
+            graphicsPath4.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialRaisedButton1.ShadowShape = graphicsPath4;
             this.materialRaisedButton1.Size = new System.Drawing.Size(165, 36);
             this.materialRaisedButton1.TabIndex = 21;
             this.materialRaisedButton1.Text = "Change color scheme";
@@ -507,7 +521,7 @@ namespace MaterialSkinExample
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Shadow = null;
             this.tabPage2.ShadowShape = null;
-            this.tabPage2.Size = new System.Drawing.Size(725, 350);
+            this.tabPage2.Size = new System.Drawing.Size(725, 362);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             // 
@@ -565,7 +579,7 @@ namespace MaterialSkinExample
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Shadow = null;
             this.tabPage3.ShadowShape = null;
-            this.tabPage3.Size = new System.Drawing.Size(725, 350);
+            this.tabPage3.Size = new System.Drawing.Size(725, 362);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "MaterialTabPage3";
             // 
@@ -579,7 +593,7 @@ namespace MaterialSkinExample
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Shadow = null;
             this.tabPage4.ShadowShape = null;
-            this.tabPage4.Size = new System.Drawing.Size(725, 350);
+            this.tabPage4.Size = new System.Drawing.Size(725, 362);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ListView";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -604,7 +618,7 @@ namespace MaterialSkinExample
             this.materialListView1.OwnerDraw = true;
             this.materialListView1.Shadow = null;
             this.materialListView1.ShadowShape = null;
-            this.materialListView1.Size = new System.Drawing.Size(719, 344);
+            this.materialListView1.Size = new System.Drawing.Size(719, 356);
             this.materialListView1.TabIndex = 0;
             this.materialListView1.UseCompatibleStateImageBehavior = false;
             this.materialListView1.View = System.Windows.Forms.View.Details;
@@ -642,7 +656,7 @@ namespace MaterialSkinExample
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Shadow = null;
             this.tabPage5.ShadowShape = null;
-            this.tabPage5.Size = new System.Drawing.Size(725, 350);
+            this.tabPage5.Size = new System.Drawing.Size(725, 362);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -679,8 +693,10 @@ namespace MaterialSkinExample
             this.materialFlatButton4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFlatButton4.Name = "materialFlatButton4";
             this.materialFlatButton4.Primary = false;
+            this.materialFlatButton4.RoundedCornerRadius = 2;
             this.materialFlatButton4.Shadow = null;
-            this.materialFlatButton4.ShadowShape = null;
+            graphicsPath5.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialFlatButton4.ShadowShape = graphicsPath5;
             this.materialFlatButton4.Size = new System.Drawing.Size(111, 36);
             this.materialFlatButton4.TabIndex = 2;
             this.materialFlatButton4.Text = "Subtract";
@@ -700,9 +716,10 @@ namespace MaterialSkinExample
             this.materialRaisedButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton2.Name = "materialRaisedButton2";
             this.materialRaisedButton2.Primary = true;
+            this.materialRaisedButton2.RoundedCornerRadius = 2;
             this.materialRaisedButton2.Shadow = null;
-            graphicsPath24.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.materialRaisedButton2.ShadowShape = graphicsPath24;
+            graphicsPath6.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialRaisedButton2.ShadowShape = graphicsPath6;
             this.materialRaisedButton2.Size = new System.Drawing.Size(73, 36);
             this.materialRaisedButton2.TabIndex = 1;
             this.materialRaisedButton2.Text = "Add";
@@ -743,7 +760,7 @@ namespace MaterialSkinExample
             // 
             this.materialCardPanel1.AutoSize = true;
             this.materialCardPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.materialCardPanel1.Controls.Add(this.materialToggle1);
+            this.materialCardPanel1.Controls.Add(this.materialPanel1);
             this.materialCardPanel1.Controls.Add(this.materialSmallCard1);
             this.materialCardPanel1.Controls.Add(this.materialAvatar1);
             this.materialCardPanel1.Depth = 24;
@@ -752,10 +769,44 @@ namespace MaterialSkinExample
             this.materialCardPanel1.Name = "materialCardPanel1";
             this.materialCardPanel1.Primary = false;
             this.materialCardPanel1.Shadow = null;
-            graphicsPath21.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.materialCardPanel1.ShadowShape = graphicsPath21;
+            graphicsPath9.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialCardPanel1.ShadowShape = graphicsPath9;
             this.materialCardPanel1.Size = new System.Drawing.Size(272, 302);
             this.materialCardPanel1.TabIndex = 2;
+            // 
+            // materialPanel1
+            // 
+            this.materialPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.materialPanel1.Controls.Add(this.materialLabel3);
+            this.materialPanel1.Controls.Add(this.materialToggle1);
+            this.materialPanel1.Depth = 2;
+            this.materialPanel1.Location = new System.Drawing.Point(17, 242);
+            this.materialPanel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialPanel1.Name = "materialPanel1";
+            this.materialPanel1.RoundedCornerRadius = 2;
+            this.materialPanel1.Shadow = null;
+            graphicsPath7.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialPanel1.ShadowShape = graphicsPath7;
+            this.materialPanel1.Size = new System.Drawing.Size(238, 40);
+            this.materialPanel1.TabIndex = 3;
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel3.FontSize = 11;
+            this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel3.Location = new System.Drawing.Point(3, 9);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Primary = false;
+            this.materialLabel3.Shadow = null;
+            this.materialLabel3.ShadowShape = null;
+            this.materialLabel3.Size = new System.Drawing.Size(106, 19);
+            this.materialLabel3.TabIndex = 3;
+            this.materialLabel3.Text = "Some settings";
             // 
             // materialToggle1
             // 
@@ -763,7 +814,7 @@ namespace MaterialSkinExample
             this.materialToggle1.Checked = false;
             this.materialToggle1.Depth = 0;
             this.materialToggle1.Font = new System.Drawing.Font("Roboto", 10F);
-            this.materialToggle1.Location = new System.Drawing.Point(11, 116);
+            this.materialToggle1.Location = new System.Drawing.Point(171, 0);
             this.materialToggle1.Margin = new System.Windows.Forms.Padding(0);
             this.materialToggle1.MouseLocation = new System.Drawing.Point(0, 0);
             this.materialToggle1.MouseState = MaterialSkin.MouseState.HOVER;
@@ -782,13 +833,13 @@ namespace MaterialSkinExample
             this.materialSmallCard1.Depth = 4;
             this.materialSmallCard1.Image = null;
             this.materialSmallCard1.Info = null;
-            this.materialSmallCard1.Location = new System.Drawing.Point(11, 61);
+            this.materialSmallCard1.Location = new System.Drawing.Point(17, 83);
             this.materialSmallCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialSmallCard1.Name = "materialSmallCard1";
             this.materialSmallCard1.Primary = false;
             this.materialSmallCard1.Shadow = null;
-            graphicsPath20.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.materialSmallCard1.ShadowShape = graphicsPath20;
+            graphicsPath8.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialSmallCard1.ShadowShape = graphicsPath8;
             this.materialSmallCard1.Size = new System.Drawing.Size(182, 52);
             this.materialSmallCard1.TabIndex = 1;
             this.materialSmallCard1.Text = "materialSmallCard1";
@@ -798,7 +849,7 @@ namespace MaterialSkinExample
             this.materialAvatar1.Depth = 0;
             this.materialAvatar1.IconSize = 48;
             this.materialAvatar1.Image = global::MaterialSkinExample.Properties.Resources.ic_face_black_24dp_2x;
-            this.materialAvatar1.Location = new System.Drawing.Point(11, 7);
+            this.materialAvatar1.Location = new System.Drawing.Point(17, 14);
             this.materialAvatar1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialAvatar1.Name = "materialAvatar1";
             this.materialAvatar1.Primary = true;
@@ -821,8 +872,8 @@ namespace MaterialSkinExample
             this.materialCard1.Name = "materialCard1";
             this.materialCard1.Primary = true;
             this.materialCard1.Shadow = null;
-            graphicsPath22.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
-            this.materialCard1.ShadowShape = graphicsPath22;
+            graphicsPath10.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialCard1.ShadowShape = graphicsPath10;
             this.materialCard1.Size = new System.Drawing.Size(294, 302);
             this.materialCard1.TabIndex = 1;
             this.materialCard1.Text = "materialCard1";
@@ -912,8 +963,10 @@ namespace MaterialSkinExample
             this.materialFlatButton3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFlatButton3.Name = "materialFlatButton3";
             this.materialFlatButton3.Primary = false;
+            this.materialFlatButton3.RoundedCornerRadius = 2;
             this.materialFlatButton3.Shadow = null;
-            this.materialFlatButton3.ShadowShape = null;
+            graphicsPath11.FillMode = System.Drawing.Drawing2D.FillMode.Alternate;
+            this.materialFlatButton3.ShadowShape = graphicsPath11;
             this.materialFlatButton3.Size = new System.Drawing.Size(77, 36);
             this.materialFlatButton3.TabIndex = 19;
             this.materialFlatButton3.Text = "DISABLED";
@@ -946,6 +999,8 @@ namespace MaterialSkinExample
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.materialCardPanel1.ResumeLayout(false);
+            this.materialPanel1.ResumeLayout(false);
+            this.materialPanel1.PerformLayout();
             this.materialContextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1004,5 +1059,7 @@ namespace MaterialSkinExample
         private MaterialSmallCard materialSmallCard1;
         private MaterialCard materialCard1;
         private MaterialTabPage tabPage4;
+        private MaterialPanel materialPanel1;
+        private MaterialLabel materialLabel3;
     }
 }
