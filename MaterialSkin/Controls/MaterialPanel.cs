@@ -24,6 +24,20 @@ namespace MaterialSkin.Controls
         [Browsable(false)]
         public MouseState MouseState { get; set; }
 
+        private bool _primary;
+        public bool Primary
+        {
+            get
+            {
+                return _primary;
+            }
+            set
+            {
+                _primary = value;
+                Invalidate();
+            }
+        }
+
         private int _roundedCorner = 2;
         [Browsable(true)]
         [Category("Appearance")]
@@ -57,7 +71,7 @@ namespace MaterialSkin.Controls
                 ClientRectangle.Width - 1,
                 ClientRectangle.Height - 1,
                 _roundedCorner);
-            e.Graphics.FillPath(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), bgGP);
+            e.Graphics.FillPath(MaterialSkinManager.GetPanelBackgroundBrush(_primary), bgGP);
 
             if (!DesignMode && Controls.Count>0) this.DrawChildShadow(e.Graphics);
         }

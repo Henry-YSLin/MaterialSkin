@@ -232,6 +232,11 @@ namespace MaterialSkin
             return (Theme == Themes.LIGHT ? BACKGROUND_LIGHT : BACKGROUND_DARK);
         }
 
+        public static Brush GetPanelBackgroundBrush(bool primary)
+        {
+            return (primary ? (Theme == Themes.LIGHT ? ColorScheme.LightPrimaryBrush : ColorScheme.DarkPrimaryBrush) : new SolidBrush(GetApplicationBackgroundColor()));
+        }
+
         //Roboto font
         public static Font ROBOTO_MEDIUM_15;
         public static Font ROBOTO_MEDIUM_12;

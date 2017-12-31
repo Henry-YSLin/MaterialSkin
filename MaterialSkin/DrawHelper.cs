@@ -38,27 +38,6 @@ namespace MaterialSkin
 
         public static class ShadowHelper
         {
-            public static void Old_DrawChildShadow(this IMaterialControl target, Graphics g)
-            {
-                Control panel = (Control)target;
-                foreach (IMaterialControl p in panel.Controls.OfType<IMaterialControl>())
-                {
-                    Control p2 = (Control)p;
-                    GraphicsPath GP = new GraphicsPath();
-                    GP.AddRectangle(new Rectangle(p2.Left, p2.Top, p2.Width, p2.Height));
-                    g.TranslateTransform(p.Depth, p.Depth);
-                    for (int i = p.Depth; i >= 1; i--)
-                    {
-                        g.TranslateTransform(-1f, -1f);                // <== shadow vector!
-                        using (Pen pen = new Pen(Color.FromArgb((int)((255-MaterialSkinManager.SHADOW_COLOR.A) * (1 - i / (float)p.Depth)), MaterialSkinManager.SHADOW_COLOR.RemoveAlpha()), 1.75f))
-                        {
-                            g.DrawPath(pen, GP);
-                        }
-                    }
-                    g.ResetTransform();
-                }
-            }
-
             public static void DrawChildShadow(this IMaterialControl target, Graphics g)
             {
                 if (!MaterialSkinManager.SoftShadow) return;
@@ -66,12 +45,13 @@ namespace MaterialSkin
                 foreach (IMaterialControl p in panel.Controls.OfType<IMaterialControl>())
                 {
                     Control p2 = (Control)p;
-                    if (p2.Visible != false && p.Depth!=0)
+                    if (p2.Visible != false && p.Depth != 0)
                     {
-                        if (p.Shadow == null) {
+                        if (p.Shadow == null)
+                        {
                             Bitmap sBMP = new Bitmap(p2.Width + p.Depth * 18, p2.Height + p.Depth * 18);
                             Graphics sg = Graphics.FromImage(sBMP);
-                            Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth , MaterialSkinManager.SHADOW_COLOR);
+                            Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth, MaterialSkinManager.SHADOW_COLOR);
                             Color softShadow = Color.FromArgb(Math.Max(10, MaterialSkinManager.SOFT_SHADOW_COLOR.A - p.Depth * 3 / 2), MaterialSkinManager.SOFT_SHADOW_COLOR);
                             //if (p.ShadowShape != null)
                             //{//NOT IMPLEMENTED
@@ -85,8 +65,8 @@ namespace MaterialSkin
                             //}
                             //else
                             //{
-                                sg.FillRectangle(new SolidBrush(softShadow), p.Depth * 9 - p.Depth * 3 / 2, p.Depth * 9 - p.Depth * 3 / 2, p2.Width + p.Depth * 3, p2.Height + p.Depth * 3);
-                                sg.FillRectangle(new SolidBrush(shadow), p.Depth * 9 + p.Depth * 3 / 8 + 4, p.Depth * 9 + p.Depth / 2 + 5, p2.Width - p.Depth * 3 / 4 - 8, p2.Height + p.Depth / 2 - 7);
+                            sg.FillRectangle(new SolidBrush(softShadow), p.Depth * 9 - p.Depth * 3 / 2, p.Depth * 9 - p.Depth * 3 / 2, p2.Width + p.Depth * 3, p2.Height + p.Depth * 3);
+                            sg.FillRectangle(new SolidBrush(shadow), p.Depth * 9 + p.Depth * 3 / 8 + 4, p.Depth * 9 + p.Depth / 2 + 5, p2.Width - p.Depth * 3 / 4 - 8, p2.Height + p.Depth / 2 - 7);
                             //}
                             sg.Flush(FlushIntention.Sync);
                             GaussianBlur gb = new GaussianBlur(sBMP);
@@ -97,6 +77,49 @@ namespace MaterialSkin
                 }
             }
 
+            public static void DrawChildShadow_GP(this IMaterialControl target, Graphics g)
+            {
+                if (!MaterialSkinManager.SoftShadow) return;
+                Control panel = (Control)target;
+                foreach (IMaterialControl p in panel.Controls.OfType<IMaterialControl>())
+                {
+                    Control p2 = (Control)p;
+                    if (p2.Visible != false && p.Depth!=0)
+                    {
+                        if (p.Shadow == null) {
+                            Bitmap sBMP = new Bitmap(p2.Width + p.Depth * 18, p2.Height + p.Depth * 18);
+                            Graphics sg = Graphics.FromImage(sBMP);
+                            Color shadow = Color.FromArgb(MaterialSkinManager.SHADOW_COLOR.A - p.Depth , MaterialSkinManager.SHADOW_COLOR);
+                            Color softShadow = Color.FromArgb(Math.Max(10, MaterialSkinManager.SOFT_SHADOW_COLOR.A - p.Depth * 3 / 2), MaterialSkinManager.SOFT_SHADOW_COLOR);
+                            if (p.ShadowShape != null)
+                            {//NOT IMPLEMENTED
+                                PointF midPt = new Point(p2.Left + p2.Width / 2, p2.Top + p2.Height / 2);
+                                GraphicsPath gp = (GraphicsPath)p.ShadowShape.Clone();
+                                gp.ScaleAroundPivot((p2.Width + p.Depth * 3) / p2.Width, (p2.Height + p.Depth * 3) / p2.Height, midPt.X, midPt.Y);
+                                gp.Translate(-p2.ClientRectangle.Left + p.Depth * 9, -p2.ClientRectangle.Top + p.Depth * 9);
+                                sg.FillPath(new SolidBrush(softShadow), gp);
+                            }
+                            else
+                            {
+                                sg.FillRectangle(new SolidBrush(softShadow), p.Depth * 9 - p.Depth * 3 / 2, p.Depth * 9 - p.Depth * 3 / 2, p2.Width + p.Depth * 3, p2.Height + p.Depth * 3);
+                                sg.FillRectangle(new SolidBrush(shadow), p.Depth * 9 + p.Depth * 3 / 8 + 4, p.Depth * 9 + p.Depth / 2 + 5, p2.Width - p.Depth * 3 / 4 - 8, p2.Height + p.Depth / 2 - 7);
+                            }
+                            sg.Flush(FlushIntention.Sync);
+                            GaussianBlur gb = new GaussianBlur(sBMP);
+                            p.Shadow = gb.Process(p.Depth + 1);
+                        }
+                        g.DrawImage(p.Shadow, p2.Left - p.Depth * 9, p2.Top - p.Depth * 9);
+                    }
+                }
+            }
+
+            private static void Translate(this GraphicsPath gp, float x, float y)
+            {
+                Matrix m = new Matrix();
+                m.Translate(x, y, MatrixOrder.Append);
+                gp.Transform(m);
+            }
+            
             private static void ScaleAroundPivot(this GraphicsPath gp, 
                 float scalex, float scaley, float px, float py)
             {
