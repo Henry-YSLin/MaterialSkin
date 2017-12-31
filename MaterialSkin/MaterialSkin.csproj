@@ -100,6 +100,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DrawHelper.cs" />
+    <Compile Include="GaussianBlur.cs" />
     <Compile Include="IMaterialControl.cs" />
     <Compile Include="Controls\MaterialRaisedButton.cs">
       <SubType>Component</SubType>
