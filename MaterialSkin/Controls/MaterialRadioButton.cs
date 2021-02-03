@@ -18,7 +18,7 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Browsable(false)]
@@ -46,14 +46,14 @@ namespace MaterialSkin.Controls
                 if (value == true)
                 {
                     if (Parent != null)
-                    foreach (Control c in Parent.Controls)
-                    {
-                        var c2 = c as MaterialRadioButton;
-                        if (c2 != null)
+                        foreach (Control c in Parent.Controls)
                         {
-                            c2.Checked = false;
+                            var c2 = c as MaterialRadioButton;
+                            if (c2 != null)
+                            {
+                                c2.Checked = false;
+                            }
                         }
-                    }
                 }
                 _checked = value;
                 CheckedChanged?.Invoke(this, EventArgs.Empty);
@@ -134,13 +134,19 @@ namespace MaterialSkin.Controls
 
             Ripple = true;
             MouseLocation = new Point(-1, -1);
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
         private void OnSizeChanged(object sender, EventArgs eventArgs)
         {
             boxOffset = Height / 2 - (int)Math.Ceiling(RADIOBUTTON_SIZE / 2d);
             radioButtonBounds = new Rectangle(boxOffset, boxOffset, RADIOBUTTON_SIZE, RADIOBUTTON_SIZE);
             Shadow = null;
-            ShadowShape = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         public override Size GetPreferredSize(Size proposedSize)
@@ -220,7 +226,7 @@ namespace MaterialSkin.Controls
 
             brush.Dispose();
             pen.Dispose();
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(g);
         }
 
         private bool IsMouseInCheckArea()

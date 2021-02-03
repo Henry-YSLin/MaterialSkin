@@ -118,12 +118,7 @@ namespace MaterialSkin.Controls
             Height = 40; Width = 67; DoubleBuffered = true;
             BackColor = Color.Transparent;
             Ripple = true;
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            Height = 40; Width = 67;
-
+            RoundedRectangle?.Dispose();
             RoundedRectangle = new GraphicsPath();
             int radius = 10;
 
@@ -132,10 +127,29 @@ namespace MaterialSkin.Controls
             RoundedRectangle.AddArc(Width - 31, Height / 2f - 5.5f, radius - 1, radius, 0, 90);
             RoundedRectangle.AddArc(21, Height / 2f - 5.5f, radius - 1, radius, 90, 90);
 
-            RoundedRectangle.CloseAllFigures();
+            RoundedRectangle.CloseFigure();
+            Shadow = null;
+            ShadowShape = RoundedRectangle;
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            Height = 40; Width = 67;
+
+            RoundedRectangle?.Dispose();
+            RoundedRectangle = new GraphicsPath();
+            int radius = 10;
+
+            RoundedRectangle.AddArc(21, Height / 2f - 5.5f, radius - 1, radius, 180, 90);
+            RoundedRectangle.AddArc(Width - 31, Height / 2f - 5.5f, radius - 1, radius, -90, 90);
+            RoundedRectangle.AddArc(Width - 31, Height / 2f - 5.5f, radius - 1, radius, 0, 90);
+            RoundedRectangle.AddArc(21, Height / 2f - 5.5f, radius - 1, radius, 90, 90);
+
+            RoundedRectangle.CloseFigure();
+            Shadow = null;
+            ShadowShape = RoundedRectangle;
             Invalidate();
 
-            Shadow = null;
         }
         protected override void OnPaint(PaintEventArgs pevent)
         {

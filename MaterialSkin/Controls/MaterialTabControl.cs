@@ -13,7 +13,7 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
 
@@ -23,10 +23,23 @@ namespace MaterialSkin.Controls
             else base.WndProc(ref m);
         }
 
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
+        }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
     }
 

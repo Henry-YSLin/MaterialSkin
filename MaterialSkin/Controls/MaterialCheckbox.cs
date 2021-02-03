@@ -18,13 +18,13 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Browsable(false)]
         public Point MouseLocation { get; set; }
         private string text;
-        [Category("Appearance"),Browsable(true)]
+        [Category("Appearance"), Browsable(true)]
         public override string Text
         {
             get
@@ -58,7 +58,7 @@ namespace MaterialSkin.Controls
         }
 
         private bool _checked;
-        [Category("Behavior"),Browsable(true)]
+        [Category("Behavior"), Browsable(true)]
         public bool Checked
         {
             get
@@ -121,6 +121,10 @@ namespace MaterialSkin.Controls
             MouseLocation = new Point(-1, -1);
 
             Size = new Size(160, 36);
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -130,7 +134,9 @@ namespace MaterialSkin.Controls
             boxOffset = Height / 2 - 9;
             boxRectangle = new Rectangle(boxOffset, boxOffset, CHECKBOX_SIZE - 1, CHECKBOX_SIZE - 1);
             Shadow = null;
-                ShadowShape = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         public override Size GetPreferredSize(Size proposedSize)
@@ -147,7 +153,7 @@ namespace MaterialSkin.Controls
             var g = pevent.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
-            
+
 
             var CHECKBOX_CENTER = boxOffset + CHECKBOX_SIZE_HALF - 1;
 
@@ -221,7 +227,7 @@ namespace MaterialSkin.Controls
             // dispose used paint objects
             pen.Dispose();
             brush.Dispose();
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(g);
         }
 
         private Bitmap DrawCheckMarkBitmap()

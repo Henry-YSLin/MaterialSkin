@@ -12,15 +12,17 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
         [Category("Appearance")]
         public bool Primary { get; set; }
         private int _fSize = 11;
         [Category("Appearance")]
-        public int FontSize {
-            get {
+        public int FontSize
+        {
+            get
+            {
                 return _fSize;
             }
             set
@@ -34,6 +36,9 @@ namespace MaterialSkin.Controls
         {
             base.OnResize(e);
             Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         protected override void OnCreateControl()
@@ -60,6 +65,10 @@ namespace MaterialSkin.Controls
                     ForeColor = MaterialSkinManager.GetSecondaryTextColor();
                 }
             };
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
     }
 }

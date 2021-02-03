@@ -19,7 +19,7 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
 
@@ -69,7 +69,18 @@ namespace MaterialSkin.Controls
             Width = IconSize;
             Height = IconSize;
             Shadow = null;
-            ShadowShape = null;
+            if (image == null && BackColor == Color.Transparent)
+            {
+                GraphicsPath gp = new GraphicsPath();
+                gp.AddEllipse(ClientRectangle.Left, ClientRectangle.Top, IconSize - 1, IconSize - 1);
+                ShadowShape = gp;
+            }
+            else
+            {
+                GraphicsPath gp = new GraphicsPath();
+                gp.AddRectangle(new Rectangle(ClientRectangle.Left, ClientRectangle.Top, IconSize - 1, IconSize - 1));
+                ShadowShape = gp;
+            }
         }
 
         public MaterialAvatar()
@@ -79,6 +90,23 @@ namespace MaterialSkin.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             Height = 48; Width = 48; DoubleBuffered = true;
+            Shadow = null;
+            if (image == null && BackColor == Color.Transparent)
+            {
+                using (GraphicsPath gp = new GraphicsPath())
+                {
+                    gp.AddEllipse(ClientRectangle.Left, ClientRectangle.Top, IconSize - 1, IconSize - 1);
+                    ShadowShape = gp;
+                }
+            }
+            else
+            {
+                using (GraphicsPath gp = new GraphicsPath())
+                {
+                    gp.AddRectangle(new Rectangle(ClientRectangle.Left, ClientRectangle.Top, IconSize - 1, IconSize - 1));
+                    ShadowShape = gp;
+                }
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -101,7 +129,7 @@ namespace MaterialSkin.Controls
                 G.FillEllipse(Primary ? MaterialSkinManager.ColorScheme.PrimaryBrush : MaterialSkinManager.GetRaisedButtonBackgroundBrush(), 0, 0, IconSize - 1, IconSize - 1);
                 G.DrawString(Text, MaterialSkinManager.ROBOTO_MEDIUM_15, MaterialSkinManager.GetRaisedButtonTextBrush(Primary), new RectangleF(0, 0, IconSize - 1, IconSize - 1), new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
             }
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(G);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(G);
         }
     }
 }

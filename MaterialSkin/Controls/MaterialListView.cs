@@ -11,51 +11,51 @@ using System.Windows.Forms;
 
 namespace MaterialSkin.Controls
 {
-	public class MaterialListView : ListView, IMaterialControl
+    public class MaterialListView : ListView, IMaterialControl
     {
         [Browsable(false)]
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
-		[Browsable(false)]
-		public MouseState MouseState { get; set; }
-		[Browsable(false)]
-		public Point MouseLocation { get; set; }
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
+        [Browsable(false)]
+        public MouseState MouseState { get; set; }
+        [Browsable(false)]
+        public Point MouseLocation { get; set; }
         [Browsable(false)]
         private ListViewItem HoveredItem { get; set; }
 
         public MaterialListView()
-		{
-			GridLines = false;
-			FullRowSelect = true;
-			HeaderStyle = ColumnHeaderStyle.Nonclickable;
-			View = View.Details;
-			OwnerDraw = true;
-			ResizeRedraw = true;
-			BorderStyle = BorderStyle.None;
-			SetStyle(ControlStyles.DoubleBuffer | ControlStyles.OptimizedDoubleBuffer, true);
+        {
+            GridLines = false;
+            FullRowSelect = true;
+            HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            View = View.Details;
+            OwnerDraw = true;
+            ResizeRedraw = true;
+            BorderStyle = BorderStyle.None;
+            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.OptimizedDoubleBuffer, true);
 
-			//Fix for hovers, by default it doesn't redraw
-			//TODO: should only redraw when the hovered line changed, this to reduce unnecessary redraws
-			MouseLocation = new Point(-1, -1);
-			MouseState = MouseState.OUT;
-			MouseEnter += delegate
-			{
-				MouseState = MouseState.HOVER;
-			}; 
-			MouseLeave += delegate
-			{
-				MouseState = MouseState.OUT; 
-				MouseLocation = new Point(-1, -1);
+            //Fix for hovers, by default it doesn't redraw
+            //TODO: should only redraw when the hovered line changed, this to reduce unnecessary redraws
+            MouseLocation = new Point(-1, -1);
+            MouseState = MouseState.OUT;
+            MouseEnter += delegate
+            {
+                MouseState = MouseState.HOVER;
+            };
+            MouseLeave += delegate
+            {
+                MouseState = MouseState.OUT;
+                MouseLocation = new Point(-1, -1);
                 HoveredItem = null;
                 Invalidate();
-			};
-			MouseDown += delegate { MouseState = MouseState.DOWN; };
-			MouseUp += delegate{ MouseState = MouseState.HOVER; };
-			MouseMove += delegate(object sender, MouseEventArgs args)
-			{
-				MouseLocation = args.Location;
+            };
+            MouseDown += delegate { MouseState = MouseState.DOWN; };
+            MouseUp += delegate { MouseState = MouseState.HOVER; };
+            MouseMove += delegate (object sender, MouseEventArgs args)
+            {
+                MouseLocation = args.Location;
                 var currentHoveredItem = this.GetItemAt(MouseLocation.X, MouseLocation.Y);
                 if (HoveredItem != currentHoveredItem)
                 {
@@ -63,72 +63,79 @@ namespace MaterialSkin.Controls
                     Invalidate();
                 }
             };
-		}
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
+        }
 
-		protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
-		{
-			e.Graphics.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), new Rectangle(e.Bounds.X, e.Bounds.Y, Width, e.Bounds.Height));
-			e.Graphics.DrawString(e.Header.Text, 
-				MaterialSkinManager.ROBOTO_MEDIUM_10, 
-				MaterialSkinManager.GetSecondaryTextBrush(),
-				new Rectangle(e.Bounds.X + ITEM_PADDING, e.Bounds.Y + ITEM_PADDING, e.Bounds.Width - ITEM_PADDING * 2, e.Bounds.Height - ITEM_PADDING * 2), 
-				getStringFormat());
-		}
+        protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
+        {
+            e.Graphics.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), new Rectangle(e.Bounds.X, e.Bounds.Y, Width, e.Bounds.Height));
+            e.Graphics.DrawString(e.Header.Text,
+                MaterialSkinManager.ROBOTO_MEDIUM_10,
+                MaterialSkinManager.GetSecondaryTextBrush(),
+                new Rectangle(e.Bounds.X + ITEM_PADDING, e.Bounds.Y + ITEM_PADDING, e.Bounds.Width - ITEM_PADDING * 2, e.Bounds.Height - ITEM_PADDING * 2),
+                getStringFormat());
+        }
 
-		private const int ITEM_PADDING = 12;
-		protected override void OnDrawItem(DrawListViewItemEventArgs e)
-		{
-			//We draw the current line of items (= item with subitems) on a temp bitmap, then draw the bitmap at once. This is to reduce flickering.
-			var b = new Bitmap(e.Item.Bounds.Width, e.Item.Bounds.Height);
-			var g = Graphics.FromImage(b);
+        private const int ITEM_PADDING = 12;
+        protected override void OnDrawItem(DrawListViewItemEventArgs e)
+        {
+            //We draw the current line of items (= item with subitems) on a temp bitmap, then draw the bitmap at once. This is to reduce flickering.
+            var b = new Bitmap(e.Item.Bounds.Width, e.Item.Bounds.Height);
+            var g = Graphics.FromImage(b);
 
-			//always draw default background
-			g.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
-			
-			if (e.State.HasFlag(ListViewItemStates.Selected))
-			{
-				//selected background
-				g.FillRectangle(MaterialSkinManager.GetFlatButtonPressedBackgroundBrush(), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
-			}
-			else if (e.Bounds.Contains(MouseLocation) && MouseState == MouseState.HOVER)
-			{
-				//hover background
-				g.FillRectangle(MaterialSkinManager.GetFlatButtonHoverBackgroundBrush(), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
-			}
+            //always draw default background
+            g.FillRectangle(new SolidBrush(MaterialSkinManager.GetApplicationBackgroundColor()), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+
+            if (e.State.HasFlag(ListViewItemStates.Selected))
+            {
+                //selected background
+                g.FillRectangle(MaterialSkinManager.GetFlatButtonPressedBackgroundBrush(), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+            }
+            else if (e.Bounds.Contains(MouseLocation) && MouseState == MouseState.HOVER)
+            {
+                //hover background
+                g.FillRectangle(MaterialSkinManager.GetFlatButtonHoverBackgroundBrush(), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+            }
 
 
-			//Draw separator
-			g.DrawLine(new Pen(MaterialSkinManager.GetDividersColor()), e.Bounds.Left, 0, e.Bounds.Right, 0);
-			
-			foreach (ListViewItem.ListViewSubItem subItem in e.Item.SubItems)
-			{
-				//Draw text
-				g.DrawString(subItem.Text, MaterialSkinManager.ROBOTO_MEDIUM_10, MaterialSkinManager.GetPrimaryTextBrush(),
-								 new Rectangle(subItem.Bounds.X + ITEM_PADDING, ITEM_PADDING, subItem.Bounds.Width - 2 * ITEM_PADDING, subItem.Bounds.Height - 2 * ITEM_PADDING),
-								 getStringFormat());
-			}
+            //Draw separator
+            g.DrawLine(new Pen(MaterialSkinManager.GetDividersColor()), e.Bounds.Left, 0, e.Bounds.Right, 0);
 
-			e.Graphics.DrawImage((Image) b.Clone(), new Point(0, e.Item.Bounds.Location.Y));
-			g.Dispose();
-			b.Dispose();
-		}
+            foreach (ListViewItem.ListViewSubItem subItem in e.Item.SubItems)
+            {
+                //Draw text
+                g.DrawString(subItem.Text, MaterialSkinManager.ROBOTO_MEDIUM_10, MaterialSkinManager.GetPrimaryTextBrush(),
+                                 new Rectangle(subItem.Bounds.X + ITEM_PADDING, ITEM_PADDING, subItem.Bounds.Width - 2 * ITEM_PADDING, subItem.Bounds.Height - 2 * ITEM_PADDING),
+                                 getStringFormat());
+            }
+
+            e.Graphics.DrawImage((Image)b.Clone(), new Point(0, e.Item.Bounds.Location.Y));
+            g.Dispose();
+            b.Dispose();
+        }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         private StringFormat getStringFormat()
-		{
-			return new StringFormat
-			{
-				FormatFlags = StringFormatFlags.LineLimit,
-				Trimming = StringTrimming.EllipsisCharacter,
-				Alignment = StringAlignment.Near,
-				LineAlignment = StringAlignment.Center
-			};
-		}
+        {
+            return new StringFormat
+            {
+                FormatFlags = StringFormatFlags.LineLimit,
+                Trimming = StringTrimming.EllipsisCharacter,
+                Alignment = StringAlignment.Near,
+                LineAlignment = StringAlignment.Center
+            };
+        }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public class LogFont
@@ -151,8 +158,8 @@ namespace MaterialSkin.Controls
         }
 
         protected override void OnCreateControl()
-		{
-			base.OnCreateControl();
+        {
+            base.OnCreateControl();
 
             // This hack tries to apply the Roboto (24) font to all ListViewItems in this ListView
             // It only succeeds if the font is installed on the system.
@@ -171,5 +178,5 @@ namespace MaterialSkin.Controls
                 Font = new Font(FontFamily.GenericSansSerif, 24);
             }
         }
-	}
+    }
 }

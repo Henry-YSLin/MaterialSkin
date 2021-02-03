@@ -115,6 +115,9 @@ namespace MaterialSkin.Controls
             Primary = true;
 
             AutoSize = true;
+
+            Shadow = null;
+            ShadowShape = DrawHelper.CreateRoundRect(1, 1, Width - 3, Height - 4, 2);
         }
 
         public void AddLabel()

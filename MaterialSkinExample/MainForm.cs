@@ -78,7 +78,7 @@ namespace MaterialSkinExample
 
         private void materialFlatButton2_Click(object sender, EventArgs e)
         {
-            //(sender as IMaterialControl).Depth += 1; //DEBUG
+            (sender as IMaterialControl).Depth += 1;
         }
     }
 }

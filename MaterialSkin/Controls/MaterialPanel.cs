@@ -61,6 +61,12 @@ namespace MaterialSkin.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
+            Shadow = null;
+            ShadowShape = DrawHelper.CreateRoundRect(ClientRectangle.X,
+                ClientRectangle.Y,
+                ClientRectangle.Width - 1,
+                ClientRectangle.Height - 1,
+                _roundedCorner);
         }
 
         protected override void OnPaint(PaintEventArgs e)

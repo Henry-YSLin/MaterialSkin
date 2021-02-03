@@ -17,7 +17,7 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
         public bool Primary { get; set; }
@@ -132,6 +132,8 @@ namespace MaterialSkin.Controls
             };
 
             hoverAnimationManager.OnAnimationProgress += HoverAnimationManager_OnAnimationProgress;
+            Shadow = null;
+            ShadowShape = DrawHelper.CreateRoundRect(1, 1, Width - 3, Height - 3, 1);
         }
 
         private void HoverAnimationManager_OnAnimationProgress(object sender)
@@ -172,7 +174,7 @@ namespace MaterialSkin.Controls
 
             G.TextRenderingHint = TextRenderingHint.AntiAlias;
             G.DrawString(info, MaterialSkinManager.ROBOTO_REGULAR_9, new SolidBrush(MaterialSkinManager.GetSecondaryTextColor()), new PointF(59.1f, 26f));
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(G);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(G);
         }
 
         private Size GetPreferredSize()

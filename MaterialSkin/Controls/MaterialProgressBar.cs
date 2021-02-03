@@ -37,6 +37,10 @@ namespace MaterialSkin.Controls
             };
             animationManager.OnAnimationProgress += sender => Invalidate();
             animationManager.OnAnimationFinished += AnimationManager_OnAnimationFinished;
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         private void AnimationManager_OnAnimationFinished(object sender)
@@ -74,9 +78,9 @@ namespace MaterialSkin.Controls
         /// The depth.
         /// </value>
         [Browsable(true)]
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
 
-        [Browsable(true),Category("Appearance")]
+        [Browsable(true), Category("Appearance")]
         public bool DecreaseHighlight { get; set; }
 
         public bool OnRight { get; set; }
@@ -107,6 +111,9 @@ namespace MaterialSkin.Controls
         {
             base.OnResize(e);
             Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         /// <summary>
@@ -163,7 +170,7 @@ namespace MaterialSkin.Controls
                     }
                 }
             }
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(e.Graphics);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(e.Graphics);
         }
     }
 }

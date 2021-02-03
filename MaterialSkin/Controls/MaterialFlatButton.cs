@@ -105,6 +105,12 @@ namespace MaterialSkin.Controls
             Margin = new Padding(4, 6, 4, 6);
             Padding = new Padding(0);
             Font = new Font(MaterialSkinManager.ROBOTO_REGULAR_11.FontFamily, _fSize);
+            Shadow = null;
+            ShadowShape = DrawHelper.CreateRoundRect(ClientRectangle.X,
+                ClientRectangle.Y,
+                ClientRectangle.Width - 1,
+                ClientRectangle.Height - 1,
+                _roundedCorner);
         }
 
         private void AnimationManager_OnAnimationFinished(object sender)

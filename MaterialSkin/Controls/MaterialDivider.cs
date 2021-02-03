@@ -12,10 +12,10 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
-        
+
         public MaterialDivider()
         {
             SetStyle(ControlStyles.UserPaint, true);
@@ -25,13 +25,19 @@ namespace MaterialSkin.Controls
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             Height = 1;
             BackColor = MaterialSkinManager.GetDividersColor();
-            ShadowShape = null;
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
     }
 }

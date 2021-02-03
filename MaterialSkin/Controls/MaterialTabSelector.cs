@@ -17,11 +17,11 @@ namespace MaterialSkin.Controls
         public Bitmap Shadow { get; set; }
         [Browsable(false)]
         public GraphicsPath ShadowShape { get; set; }
-        private int _Depth = 0; public int Depth{ get{return _Depth;}set{if (_Depth!=value) Shadow = null;_Depth=value;if (Parent != null) Parent.Invalidate();}}
+        private int _Depth = 0; public int Depth { get { return _Depth; } set { if (_Depth != value) Shadow = null; _Depth = value; if (Parent != null) Parent.Invalidate(); } }
         [Browsable(false)]
         public MouseState MouseState { get; set; }
-        
-		private MaterialTabControl baseTabControl;
+
+        private MaterialTabControl baseTabControl;
         public MaterialTabControl BaseTabControl
         {
             get { return baseTabControl; }
@@ -69,12 +69,19 @@ namespace MaterialSkin.Controls
                 Increment = 0.04
             };
             animationManager.OnAnimationProgress += sender => Invalidate();
+            Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Shadow = null;
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddRectangle(ClientRectangle);
+            ShadowShape = gp;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -82,11 +89,11 @@ namespace MaterialSkin.Controls
             var g = e.Graphics;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-			g.Clear(MaterialSkinManager.ColorScheme.PrimaryColor);
+            g.Clear(MaterialSkinManager.ColorScheme.PrimaryColor);
 
             if (baseTabControl == null) return;
 
-            if (!animationManager.IsAnimating() || tabRects == null ||  tabRects.Count != baseTabControl.TabCount)
+            if (!animationManager.IsAnimating() || tabRects == null || tabRects.Count != baseTabControl.TabCount)
                 UpdateTabRects();
 
             double animationProgress = animationManager.GetProgress();
@@ -107,13 +114,13 @@ namespace MaterialSkin.Controls
             foreach (TabPage tabPage in baseTabControl.TabPages)
             {
                 int currentTabIndex = baseTabControl.TabPages.IndexOf(tabPage);
-				Brush textBrush = new SolidBrush(Color.FromArgb(CalculateTextAlpha(currentTabIndex, animationProgress), MaterialSkinManager.ColorScheme.TextColor));
+                Brush textBrush = new SolidBrush(Color.FromArgb(CalculateTextAlpha(currentTabIndex, animationProgress), MaterialSkinManager.ColorScheme.TextColor));
 
                 g.DrawString(
-                    tabPage.Text.ToUpper(), 
-                    MaterialSkinManager.ROBOTO_MEDIUM_10, 
-                    textBrush, 
-                    tabRects[currentTabIndex], 
+                    tabPage.Text.ToUpper(),
+                    MaterialSkinManager.ROBOTO_MEDIUM_10,
+                    textBrush,
+                    tabRects[currentTabIndex],
                     new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                 textBrush.Dispose();
             }
@@ -127,8 +134,8 @@ namespace MaterialSkin.Controls
             int x = previousActiveTabRect.X + (int)((activeTabPageRect.X - previousActiveTabRect.X) * animationProgress);
             int width = previousActiveTabRect.Width + (int)((activeTabPageRect.Width - previousActiveTabRect.Width) * animationProgress);
 
-			g.FillRectangle(MaterialSkinManager.ColorScheme.AccentBrush, x, y, width, TAB_INDICATOR_HEIGHT);
-            if (!DesignMode && Controls.Count>0) this.DrawChildShadow(g);
+            g.FillRectangle(MaterialSkinManager.ColorScheme.AccentBrush, x, y, width, TAB_INDICATOR_HEIGHT);
+            if (!DesignMode && Controls.Count > 0) this.DrawChildShadow(g);
         }
 
         private int CalculateTextAlpha(int tabIndex, double animationProgress)
